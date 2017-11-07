@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CoderDojo Italia</string>
+    <string name="title_activity_settings">Impostazioni</string>
+    <string name="title_activity_event">Evento</string>
+    <string name="foo_description">Creeremo un gioco da zero con Scratch e poi ci sfideremo. Con Scratch, puoi programmare storie interattive, giochi ed animazioni — e puoi condividere le tue creazioni con gli altri membri della comunità online. Scratch aiuta i giovani ad imparare a pensare in modo creativo, a ragionare in maniera sistematica e a collaborare. Scratch è un progetto del Lifelong Kindergarten Group dei Media Lab del MIR. È reso disponibile in maniera completamente gratuita.</string>
+</resources>

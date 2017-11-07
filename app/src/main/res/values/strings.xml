@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CoderDojo</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_event">Event</string>
+
+    <string name="google_android_map_api_key">AIzaSyBhgdZc6Ph_IqTQYHnE508wFhv9NlyTxr4</string>
+
+
+    <string name="foo_description">Creeremo un gioco da zero con Scratch e poi ci sfideremo. Con Scratch, puoi programmare storie interattive, giochi ed animazioni — e puoi condividere le tue creazioni con gli altri membri della comunità online. Scratch aiuta i giovani ad imparare a pensare in modo creativo, a ragionare in maniera sistematica e a collaborare. Scratch è un progetto del Lifelong Kindergarten Group dei Media Lab del MIR. È reso disponibile in maniera completamente gratuita.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
