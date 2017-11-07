@@ -17,12 +17,8 @@ class EventActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
         setupMap()
-        setupDesc()
     }
 
-    private fun setupDesc() {
-        findViewById<ExpandableTextView>(R.id.expand_text_view).findViewById<TextView>(R.id.expandable_text).setText(R.string.foo_description)
-    }
 
 
     private fun setupMap() {
