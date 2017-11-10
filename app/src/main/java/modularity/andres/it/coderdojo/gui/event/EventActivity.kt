@@ -1,12 +1,8 @@
 package modularity.andres.it.coderdojo.gui.event
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import com.ms.square.android.expandabletextview.ExpandableTextView
-import kotlinx.android.synthetic.main.activity_event.*
+import android.support.v7.app.AppCompatActivity
 import modularity.andres.it.coderdojo.R
-import modularity.andres.it.coderdojo.gui.event.fragment.MapFragment
 
 
 class EventActivity : AppCompatActivity() {
@@ -22,8 +18,7 @@ class EventActivity : AppCompatActivity() {
 
 
     private fun setupMap() {
-        val mapFragment =
-                supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.getMapAsync(mapFragment)
         System.err.println("OnCreate end")
     }
