@@ -1,6 +1,7 @@
 package modularity.andres.it.coderdojo.app.dagger
 
 import dagger.Component
+import modularity.andres.it.coderdojo.api.dagger.ApiModule
 import modularity.andres.it.coderdojo.app.DojoApp
 import javax.inject.Singleton
 
@@ -10,7 +11,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(
-        AppModule::class
+        AppModule::class,
+        ApiModule::class
 ))
 interface AppComponent {
     fun inject(app: DojoApp)
