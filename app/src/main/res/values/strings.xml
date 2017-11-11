@@ -10,4 +10,8 @@
     <string name="map">Map</string>
     <string name="desc_label">Desc</string>
     <string name="title_label">Title</string>
+    <string name="date">sab 18 novembre 2017\n15:00 – 18:00 CET</string>
+    <string name="num_tickets">Number of Tickets\nAvailable:</string>
+    <string name="address_event">via panciatichi 14, firenze</string>
+    <string name="title_activity_description">DescriptionActivity</string>
 </resources>
