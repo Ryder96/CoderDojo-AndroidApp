@@ -26,5 +26,15 @@ class MapFragment : SupportMapFragment(), OnMapReadyCallback {
                 .tilt(40f)
                 .build()
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos))
+
+        mMap.setOnMapClickListener(MapClickListener(this))
+    }
+
+
+    private class MapClickListener(var context: SupportMapFragment) : GoogleMap.OnMapClickListener {
+        override fun onMapClick(latLng: LatLng?) {
+
+        }
+
     }
 }

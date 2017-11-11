@@ -2,4 +2,7 @@
 <resources>
     <dimen name="title_label">45sp</dimen>
     <dimen name="subtitle_label">20sp</dimen>
+    <dimen name="size_item_title_event_label">24sp</dimen>
+    <dimen name="size_item_address_event_label">18sp</dimen>
+    <dimen name="size_item_date_event_label">16sp</dimen>
 </resources>

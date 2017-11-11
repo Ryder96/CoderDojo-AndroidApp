@@ -1,8 +1,6 @@
 package modularity.andres.it.coderdojo.gui.event
 
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -14,25 +12,21 @@ import modularity.andres.it.coderdojo.gui.event.fragment.MapFragment
 class EventActivity : AppCompatActivity() {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
+        setup()
+    }
+
+    private fun setup() {
         setupMap()
         setupDescription()
+        //setupElements()//
     }
 
     private fun setupDescription() {
         val descText = findViewById<TextView>(R.id.description_text) as TextView
-        descText.setOnClickListener(descListener(this, descText.toString()))
-        descText.text = limitStringTo(descText.text, 500)
-    }
-
-    private fun limitStringTo(text: CharSequence?, range: Int): CharSequence? {
-        var string = text.toString()
-        string = string.substring(0, range)
-        string += "..."
-        return string
+        descText.setOnClickListener(DescriptionListener(this, descText.text))
     }
 
     private fun setupMap() {
@@ -41,13 +35,14 @@ class EventActivity : AppCompatActivity() {
 
     }
 
-    private class descListener(var context: Context, var description: String) : View.OnClickListener {
+    private class DescriptionListener(var context: AppCompatActivity, var description: CharSequence?) : View.OnClickListener {
 
-        override fun onClick(p0: View?) {
+        override fun onClick(view: View?) {
             val intent = Intent(context, DescriptionActivity::class.java)
-            intent.data = Uri.parse(description)
-            intent.type = toString()
+            intent.putExtra("DESC", description.toString())
             context.startActivity(intent)
+            context.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up)
+
         }
 
     }
