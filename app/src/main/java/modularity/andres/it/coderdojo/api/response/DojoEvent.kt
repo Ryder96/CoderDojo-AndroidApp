@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.api.model
+package modularity.andres.it.coderdojo.api.response
 
 data class DojoEvent(
         val title: String,

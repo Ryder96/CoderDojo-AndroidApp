@@ -1,7 +1,7 @@
 package modularity.andres.it.coderdojo.api
 
 import io.reactivex.Single
-import modularity.andres.it.coderdojo.api.model.DojoEvent
+import modularity.andres.it.coderdojo.api.response.DojoEvent
 import retrofit2.http.GET
 import retrofit2.http.Query
 
