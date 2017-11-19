@@ -12,7 +12,7 @@ import modularity.andres.it.coderdojo.api.response.DojoEvent
  * Created by garu on 19/11/17.
  */
 
-class EventListAdapter(val events: List<DojoEvent>) : RecyclerView.Adapter<EventsListHolder>() {
+class EventListAdapter(private val events: List<DojoEvent>) : RecyclerView.Adapter<EventsListHolder>() {
 
     override fun onBindViewHolder(holder: EventsListHolder, index: Int) {
         holder.bind(events[index])

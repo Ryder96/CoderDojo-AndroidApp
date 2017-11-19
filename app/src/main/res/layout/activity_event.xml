@@ -45,7 +45,7 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
-                    style="@style/MyCardView"
+                    style="@style/MaterialCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -62,7 +62,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    style="@style/MyCardView"
+                    style="@style/MaterialCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -78,7 +78,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    style="@style/MyCardView"
+                    style="@style/MaterialCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -115,7 +115,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    style="@style/MyCardView"
+                    style="@style/MaterialCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -163,7 +163,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    style="@style/MyCardView"
+                    style="@style/MaterialCard"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
