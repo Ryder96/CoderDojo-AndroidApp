@@ -1,5 +1,7 @@
 package modularity.andres.it.coderdojo.api.response
 
+import java.io.Serializable
+
 data class DojoLocation(
         val name: String,
         val address: String,
@@ -8,4 +10,4 @@ data class DojoLocation(
         val postalCode: String? = null,
         val latitude: Double? = null,
         val longitude: Double? = null
-)
+): Serializable

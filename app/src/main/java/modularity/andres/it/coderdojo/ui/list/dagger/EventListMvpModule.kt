@@ -1,11 +1,11 @@
-package modularity.andres.it.coderdojo.gui.list.dagger
+package modularity.andres.it.coderdojo.ui.list.dagger
 
 import dagger.Module
 import dagger.Provides
 import modularity.andres.it.coderdojo.api.DojoApi
-import modularity.andres.it.coderdojo.gui.list.mvp.DojoEventsListModel
-import modularity.andres.it.coderdojo.gui.list.mvp.DojoEventsListModelImpl
-import modularity.andres.it.coderdojo.gui.list.mvp.DojoEventsListPresenter
+import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListModel
+import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListModelImpl
+import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListPresenter
 import javax.inject.Singleton
 
 /**

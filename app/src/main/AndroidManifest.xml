@@ -34,20 +34,20 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".gui.settings.SettingsActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".gui.event.EventActivity"
-            android:label="@string/title_activity_event"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".gui.event.DescriptionActivity"
+            android:name=".ui.detail.DescriptionActivity"
             android:label="@string/desc_label"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".gui.list.EventListActivity"
+            android:name=".ui.list.EventListActivity"
             android:label="@string/title_activity_event_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.detail.EventDetailsActivity"
+            android:label="@string/title_activity_event_details"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

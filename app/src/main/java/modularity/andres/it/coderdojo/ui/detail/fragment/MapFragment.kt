@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.gui.event.fragment
+package modularity.andres.it.coderdojo.ui.detail.fragment
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

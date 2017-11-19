@@ -1,6 +1,8 @@
 package modularity.andres.it.coderdojo.api.response
 
-data class DojoEvent(
+import java.io.Serializable
+
+data class DojoEvent (
         val title: String,
         val description: String,
         val logo: String?,
@@ -14,4 +16,4 @@ data class DojoEvent(
         val organizer: DojoOrganizer,
         val free: Boolean = true,
         val price: Float? = null
-)
+) : Serializable

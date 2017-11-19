@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.gui.list.dagger;
+package modularity.andres.it.coderdojo.ui.list.dagger;
 
 import javax.inject.Singleton;
 
@@ -6,7 +6,7 @@ import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 import modularity.andres.it.coderdojo.api.dagger.ApiModule;
 import modularity.andres.it.coderdojo.app.dagger.AppModule;
-import modularity.andres.it.coderdojo.gui.list.EventListActivity;
+import modularity.andres.it.coderdojo.ui.list.EventListActivity;
 
 /**
  * Created by garu on 18/11/17.

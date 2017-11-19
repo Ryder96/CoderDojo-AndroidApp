@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.gui.list.mvp
+package modularity.andres.it.coderdojo.ui.list.mvp
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

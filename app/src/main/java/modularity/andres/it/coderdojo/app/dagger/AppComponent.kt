@@ -6,7 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import modularity.andres.it.coderdojo.api.dagger.ApiModule
 import modularity.andres.it.coderdojo.app.DojoApp
-import modularity.andres.it.coderdojo.gui.list.dagger.EventListModule
+import modularity.andres.it.coderdojo.ui.list.dagger.EventListModule
 
 
 /**

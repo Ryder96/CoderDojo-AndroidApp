@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.gui.event
+package modularity.andres.it.coderdojo.ui.detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,7 +9,6 @@ import modularity.andres.it.coderdojo.R
 
 
 class DescriptionActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

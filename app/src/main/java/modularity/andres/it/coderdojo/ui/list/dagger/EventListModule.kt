@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.gui.list.dagger
+package modularity.andres.it.coderdojo.ui.list.dagger
 
 import android.app.Activity
 import dagger.Binds
@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.android.ActivityKey
 import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
-import modularity.andres.it.coderdojo.gui.list.EventListActivity
+import modularity.andres.it.coderdojo.ui.list.EventListActivity
 
 
 /**

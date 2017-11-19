@@ -1,4 +1,4 @@
-package modularity.andres.it.coderdojo.gui.list.view
+package modularity.andres.it.coderdojo.ui.list.view
 
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateFormat
@@ -15,16 +15,18 @@ import java.util.*
  * Created by garu on 19/11/17.
  */
 
-class EventsListHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class EventsListHolder(val view: View, val listener: EventListAdapter.EventClickListener) : RecyclerView.ViewHolder(view) {
 
     fun bind(event: DojoEvent) {
 
         view.apply {
+
+            event_card.setOnClickListener { listener.onEventClick(event) }
+
             Glide.with(this)
                     .load(event.logo)
                     .apply(RequestOptions().transforms(BlurTransformation(30), CenterCrop()))
                     .into(this.dojo_cover)
-
 
             this.dojo_title.text = event.title
 

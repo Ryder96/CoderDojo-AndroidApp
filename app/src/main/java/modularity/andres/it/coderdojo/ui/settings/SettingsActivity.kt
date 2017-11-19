@@ -1,7 +1,7 @@
-package modularity.andres.it.coderdojo.gui.settings
+package modularity.andres.it.coderdojo.ui.settings
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import modularity.andres.it.coderdojo.R
 
 class SettingsActivity : AppCompatActivity() {
