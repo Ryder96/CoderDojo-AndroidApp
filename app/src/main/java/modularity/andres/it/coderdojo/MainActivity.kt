@@ -1,6 +1,7 @@
 package modularity.andres.it.coderdojo
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.util.Log
 import modularity.andres.it.coderdojo.gui.adpaters.EventsListAdapter
+import modularity.andres.it.coderdojo.gui.list.EventListActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setup()
+
+        val intent = Intent(this, EventListActivity::class.java)
+        startActivity(intent)
 
     }
 

@@ -5,6 +5,7 @@ import dagger.Provides
 import modularity.andres.it.coderdojo.api.DojoApi
 import modularity.andres.it.coderdojo.api.DojoApiService
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -17,11 +18,15 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(): OkHttpClient = OkHttpClient()
+    fun provideHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BASIC
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
 
     @Singleton
     @Provides
-    fun provideDojoApiService(@Named("eventbrite_endpoint") endpoint: String, client: OkHttpClient): DojoApiService
+    fun provideDojoApiService(@Named("dojo_api_endpoint") endpoint: String, client: OkHttpClient): DojoApiService
             = DojoApiService(endpoint, client)
 
     @Singleton
@@ -29,7 +34,7 @@ class ApiModule {
     fun provideDojoApi(dojoService: DojoApiService): DojoApi = dojoService.api
 
     @Provides
-    @Named("eventbrite_endpoint")
+    @Named("dojo_api_endpoint")
     fun provideEndpoint(): String = "http://garu.pizza:8089/" // TODO Get from build and/or remote config
 
 }

@@ -5,4 +5,5 @@
     <dimen name="size_item_title_event_label">24sp</dimen>
     <dimen name="size_item_address_event_label">18sp</dimen>
     <dimen name="size_item_date_event_label">16sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

@@ -11,7 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DojoApiService(endpoint: String, client: OkHttpClient = OkHttpClient()) {
 
-    val api = Retrofit.Builder()
+    val api: DojoApi = Retrofit.Builder()
+            .baseUrl(endpoint)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
