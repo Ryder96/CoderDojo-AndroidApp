@@ -19,9 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/event_parallax"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -42,6 +46,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_account_plus_white_48dp" />
 
 </android.support.design.widget.CoordinatorLayout>
