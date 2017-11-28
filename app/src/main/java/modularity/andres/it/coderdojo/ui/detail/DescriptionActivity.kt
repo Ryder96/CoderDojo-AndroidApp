@@ -2,7 +2,6 @@ package modularity.andres.it.coderdojo.ui.detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import modularity.andres.it.coderdojo.R
@@ -19,7 +18,7 @@ class DescriptionActivity : AppCompatActivity() {
 
     private fun setupCloseButton() {
         val closeButton = findViewById<ImageButton>(R.id.close_desc_button)
-        closeButton.setOnClickListener(CloseDescriptionButtonListener(this))
+        closeButton.setOnClickListener { this.finish() }
 
     }
 
@@ -37,12 +36,5 @@ class DescriptionActivity : AppCompatActivity() {
         super.finish()
         overridePendingTransition(R.anim.stay, R.anim.slide_out_up)
     }
-
-    private class CloseDescriptionButtonListener(var context: AppCompatActivity) : View.OnClickListener {
-
-        override fun onClick(view: View?) {
-            context.finish()
-        }
-
-    }
+    
 }

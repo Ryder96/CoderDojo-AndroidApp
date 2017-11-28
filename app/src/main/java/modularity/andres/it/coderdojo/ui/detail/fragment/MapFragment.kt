@@ -7,6 +7,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import modularity.andres.it.coderdojo.R
+import modularity.andres.it.coderdojo.api.response.DojoLocation
 
 /**
 * Created by andres on 11/7/17.
@@ -14,13 +16,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapFragment : SupportMapFragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var location: DojoLocation
 
     override fun onMapReady(map: GoogleMap?) {
         mMap = map as GoogleMap
 
-        val sydney = LatLng(43.797605, 11.2367634)
-        mMap.addMarker(MarkerOptions().position(sydney).title("CoderDojo Here"))
-        val cameraPos = CameraPosition.builder().target(sydney)
+        val city = LatLng(location.latitude!!, location.longitude!!)
+        mMap.addMarker(MarkerOptions().position(city).title(getString(R.string.mapmark_string)))
+        val cameraPos = CameraPosition.builder().target(city)
                 .zoom(17f)
                 .bearing(90f)
                 .tilt(40f)
@@ -30,6 +33,9 @@ class MapFragment : SupportMapFragment(), OnMapReadyCallback {
         mMap.setOnMapClickListener(MapClickListener(this))
     }
 
+    fun setLocation(location:DojoLocation){
+        this.location = location
+    }
 
     private class MapClickListener(var context: SupportMapFragment) : GoogleMap.OnMapClickListener {
         override fun onMapClick(latLng: LatLng?) {
