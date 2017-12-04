@@ -18,4 +18,5 @@ class DojoEventsListPresenter(model: DojoEventsListModel, view: DojoEventsListVi
                 .subscribe({ view?.showEvents(it) }, { view?.showError(it) })
     }
 
+
 }

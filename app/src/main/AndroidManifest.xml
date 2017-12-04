@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature android:name="android.hardware.location.gps" />
+
     <application
         android:name=".app.DojoApp"
         android:allowBackup="true"
@@ -29,9 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".ui.settings.SettingsActivity"
@@ -39,10 +38,6 @@
         <activity
             android:name=".ui.detail.DescriptionActivity"
             android:label="@string/desc_label"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.list.EventListActivity"
-            android:label="@string/title_activity_event_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.detail.EventDetailsActivity"

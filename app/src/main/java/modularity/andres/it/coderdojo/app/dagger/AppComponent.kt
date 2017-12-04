@@ -13,13 +13,13 @@ import modularity.andres.it.coderdojo.ui.list.dagger.EventListModule
  * Created by garu on 10/11/17.
  */
 
-@Component(modules = arrayOf(
+@Component(modules = [
         AndroidSupportInjectionModule::class,
         AndroidBindingModule::class,
         EventListModule::class,
         AppModule::class,
         ApiModule::class
-))
+])
 interface AppComponent : AndroidInjector<DojoApp> {
     @Component.Builder
     abstract class Builder : AndroidInjector.Builder<DojoApp>() {

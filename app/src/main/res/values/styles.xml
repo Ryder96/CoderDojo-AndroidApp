@@ -18,12 +18,22 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:itemTextAppearance">@style/AppTheme.ItemTextAppearance</item>
+    </style>
+    `
+
+    <style name="AppTheme.ItemTextAppearance" parent="RtlOverlay.Widget.AppCompat.PopupMenuItem.Text">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="MaterialCard" parent="CardView">
         <item name="cardCornerRadius">4dp</item>
         <item name="cardElevation">7dp</item>
         <item name="android:layout_margin">5dp</item>
     </style>
-
 
 </resources>
 

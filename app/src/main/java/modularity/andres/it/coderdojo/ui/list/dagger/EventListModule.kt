@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.android.ActivityKey
 import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
-import modularity.andres.it.coderdojo.ui.list.EventListActivity
+import modularity.andres.it.coderdojo.MainActivity
 
 
 /**
@@ -18,7 +18,7 @@ abstract class EventListModule {
 
     @Binds
     @IntoMap
-    @ActivityKey(EventListActivity::class)
+    @ActivityKey(MainActivity::class)
     internal abstract fun eventListInjectorFactory(builder: EventListActivitySubcomponent.Builder): AndroidInjector.Factory<out Activity>
 
 }
