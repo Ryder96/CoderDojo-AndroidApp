@@ -6,5 +6,11 @@
     android:layout_margin="10dp"
     tools:context="modularity.andres.it.coderdojo.ui.settings.SettingsActivity">
 
+    <fragment
+        android:name="modularity.andres.it.coderdojo.ui.settings.fragment.SettingsFragment"
+        android:id="@+id/settings_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </android.support.constraint.ConstraintLayout>

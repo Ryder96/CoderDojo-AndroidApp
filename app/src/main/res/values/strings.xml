@@ -25,7 +25,7 @@
 
     <!-- Strings related to Settings -->
 
-    <string name="pref_title_position">Something</string>
+    <string name="pref_title_position">Length unit</string>
     <string-array name="units">
         <item>Km</item>
         <item>Mi</item>
