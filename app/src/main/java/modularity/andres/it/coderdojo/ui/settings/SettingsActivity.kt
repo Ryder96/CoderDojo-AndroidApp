@@ -1,10 +1,10 @@
 package modularity.andres.it.coderdojo.ui.settings
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.preference.PreferenceActivity
 import modularity.andres.it.coderdojo.R
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : PreferenceActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

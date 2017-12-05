@@ -1,5 +1,6 @@
 package modularity.andres.it.coderdojo.provider.GPS
 
+import android.content.Context
 import android.location.Location
 
 /**
@@ -8,6 +9,6 @@ import android.location.Location
 
 interface LocationProvider {
 
-    fun queryPosition(location: Location)
+    fun queryPosition(context: Context): Location?
 
 }

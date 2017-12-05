@@ -1,23 +1,21 @@
 package modularity.andres.it.coderdojo
 
 
-import android.Manifest
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.PermissionChecker
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_event_list.*
 import modularity.andres.it.coderdojo.api.response.DojoEvent
+import modularity.andres.it.coderdojo.provider.GPS.ImplLocationProvider
+import modularity.andres.it.coderdojo.provider.setting.SettingsProvider
 import modularity.andres.it.coderdojo.ui.detail.EventDetailsActivity
 import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListPresenter
 import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListView
@@ -38,8 +36,19 @@ class MainActivity : AppCompatActivity(), DojoEventsListView, EventListAdapter.E
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(settings_toolbar)
-        syncPosition()
+        setupList()
     }
+
+    private fun setupList() {
+        val range: Double = SettingsProvider(this).retrieveRange()
+        val position: LatLng = SettingsProvider(this).retrievePosition()
+        if (range < 0.0) {
+            syncPosition()
+        } else {
+            setupEvents(position, range)
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_event_details, menu)
@@ -63,17 +72,17 @@ class MainActivity : AppCompatActivity(), DojoEventsListView, EventListAdapter.E
 
     private fun setupEvents(location: Location?) {
         presenter.view = this
-        presenter.searchEvents(location!!.latitude, location.longitude, 20.0)
-        Log.d("FINISH", location.toString())
+        presenter.searchEvents(location!!.latitude, location.longitude)
+    }
+
+    private fun setupEvents(position: LatLng, range: Double) {
+        presenter.view = this
+        presenter.searchEvents(position.latitude, position.longitude, range)
     }
 
     private fun syncPosition() {
-        val mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PermissionChecker.PERMISSION_GRANTED) {
-            mFusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                setupEvents(location)
-            }
-        }
+        val location = ImplLocationProvider().queryPosition(this)
+        setupEvents(location)
     }
 
 
