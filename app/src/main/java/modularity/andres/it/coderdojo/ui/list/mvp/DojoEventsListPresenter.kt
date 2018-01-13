@@ -18,5 +18,19 @@ class DojoEventsListPresenter(model: DojoEventsListModel, view: DojoEventsListVi
                 .subscribe({ view?.showEvents(it) }, { view?.showError(it) })
     }
 
+    fun searchEvents() {
+        if (model.getUserPref().available) {
+            model.getEvents(model.getUserPref().homeLatitude, model.getUserPref().homeLongitude, model.getUserPref().searchRange)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ view?.showEvents(it) }, { view?.showError(it) })
+        }else{
+            view?.requestUserPrefs()
+        }
+    }
+
+    fun needUserPreferences(): Boolean {
+        return true
+    }
 
 }

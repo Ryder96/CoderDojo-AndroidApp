@@ -3,32 +3,28 @@ package modularity.andres.it.coderdojo.app.dagger
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
-import modularity.andres.it.coderdojo.api.dagger.ApiModule
 import modularity.andres.it.coderdojo.app.DojoApp
-import modularity.andres.it.coderdojo.ui.list.dagger.EventListModule
-
 
 /**
- * Created by garu on 10/11/17.
+ * Created by garu on 13/01/18.
  */
 
 @Component(modules = [
-        AndroidSupportInjectionModule::class,
-        AndroidBindingModule::class,
-        EventListModule::class,
-        AppModule::class,
-        ApiModule::class
+    AndroidSupportInjectionModule::class,
+    AppModule::class,
+    BindingsModule::class
 ])
-interface AppComponent : AndroidInjector<DojoApp> {
+interface AppComponent : AndroidInjector<DaggerApplication> {
+
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<DojoApp>() {
-
+    interface Builder {
         @BindsInstance
-        abstract fun application(application: DojoApp): Builder
+        fun application(app: DojoApp): Builder
 
-        @BindsInstance
-        abstract fun appModule(appModule: AppModule): Builder
-
+        fun build(): AppComponent
     }
+
+    fun inject(app: DojoApp)
 }

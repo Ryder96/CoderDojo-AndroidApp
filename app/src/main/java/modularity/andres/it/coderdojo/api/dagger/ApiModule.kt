@@ -35,6 +35,6 @@ class ApiModule {
 
     @Provides
     @Named("dojo_api_endpoint")
-    fun provideEndpoint(): String = "http://garu.pizza:8089/" // TODO Get from build and/or remote config
+    fun provideEndpoint(): String = "http://dojo.garu.pizza/" // TODO Get from build and/or remote config
 
 }

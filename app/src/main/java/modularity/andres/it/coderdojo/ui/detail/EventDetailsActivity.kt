@@ -14,6 +14,7 @@ import modularity.andres.it.coderdojo.api.response.DojoEvent
 import modularity.andres.it.coderdojo.api.response.DojoLocation
 import modularity.andres.it.coderdojo.ui.detail.fragment.MapFragment
 import modularity.andres.it.coderdojo.ui.detail.mvp.EventDetailView
+import timber.log.Timber
 
 class EventDetailsActivity : AppCompatActivity(), EventDetailView {
 
@@ -63,15 +64,13 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
     }
 
     override fun showError(error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Timber.e(error)
     }
 
     private fun setupMap(location: DojoLocation) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
         mapFragment.setLocation(location)
         mapFragment.getMapAsync(mapFragment)
-
     }
-
 
 }

@@ -1,7 +1,6 @@
-package modularity.andres.it.coderdojo.provider.GPS
+package modularity.andres.it.coderdojo.provider.gps
 
 import android.app.Activity
-import android.content.Context
 import android.location.Location
 
 /**

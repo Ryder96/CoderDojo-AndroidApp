@@ -3,10 +3,10 @@ package modularity.andres.it.coderdojo.app
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import modularity.andres.it.coderdojo.BuildConfig
-import modularity.andres.it.coderdojo.app.dagger.AppModule
 import modularity.andres.it.coderdojo.app.dagger.DaggerAppComponent
 import modularity.andres.it.coderdojo.app.logging.ProductionLogger
 import timber.log.Timber
+
 
 /**
  * Created by garu on 10/11/17.
@@ -24,10 +24,11 @@ class DojoApp : DaggerApplication() {
         else Timber.plant(ProductionLogger())
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-            DaggerAppComponent.builder()
-                    .appModule(AppModule(this))
-                    .application(this)
-                    .create(this)
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent
+                .builder()
+                .application(this)
+                .build()
+    }
 
 }

@@ -10,6 +10,8 @@ interface DojoEventsListView {
 
     fun showEvents(events: List<DojoEvent>)
 
+    fun requestUserPrefs()
+
     fun showError(throwable: Throwable)
 
 }
