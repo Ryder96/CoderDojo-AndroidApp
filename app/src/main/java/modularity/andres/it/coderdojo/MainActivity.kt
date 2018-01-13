@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.gms.maps.model.LatLng
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,14 +31,13 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(settings_toolbar)
-        setupEvents()
+        presenter.searchEvents()
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_event_details, menu)
         return true
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -51,20 +49,9 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
         return true
     }
 
-    private fun setupEvents() {
-        presenter.view = this
-        presenter.searchEvents()
-    }
-
     override fun requestUserPrefs() {
         startActivity(Intent(this, LocationActivity::class.java))
     }
-
-    private fun setupEvents(position: LatLng, range: Double) {
-        presenter.view = this
-        presenter.searchEvents(position.latitude, position.longitude, range)
-    }
-
 
     override fun onEventClick(event: DojoEvent) {
         val intent = Intent(this, EventDetailsActivity::class.java)

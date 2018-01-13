@@ -29,8 +29,4 @@ class DojoEventsListPresenter(model: DojoEventsListModel, view: DojoEventsListVi
         }
     }
 
-    fun needUserPreferences(): Boolean {
-        return true
-    }
-
 }

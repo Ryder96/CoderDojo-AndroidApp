@@ -27,7 +27,7 @@ import modularity.andres.it.coderdojo.settings.UserPreferences
 import modularity.andres.it.coderdojo.ui.userlocation.map.DojoMap
 import timber.log.Timber
 
-
+// TODO This class needs refactor / sub component / mvp
 class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReadyCallback {
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
