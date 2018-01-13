@@ -25,7 +25,6 @@ class EventsListHolder(val view: View, val listener: EventListAdapter.EventClick
 
             this.dojo_date.text = event.formattedDate()
 
-            this.provider.text = event.organizer.platform
         }
 
     }

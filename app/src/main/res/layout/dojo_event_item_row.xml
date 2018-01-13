@@ -18,34 +18,22 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/dojo_cover"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/coderdojo_icon"/>
 
                 <TextView
                     android:id="@+id/dojo_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/dojo_cover"
+                    android:padding="2dp"
                     android:text="@string/title_label"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/size_item_title_event_label"
-                    android:textStyle="bold" />
+                   />
 
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,8 +48,7 @@
                     android:text="@string/date"
                     android:textAlignment="center"
                     android:textSize="@dimen/size_item_date_event_label"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/dojo_location"
@@ -69,21 +56,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/address_event"
                     android:textAlignment="center"
-                    android:textSize="@dimen/size_item_address_event_label"
-                    />
+                    android:textSize="@dimen/size_item_address_event_label" />
 
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/provider"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="end"
-                android:text="@string/provider_id"/>
+
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
 

@@ -15,5 +15,4 @@ class DojoEventsListModelImpl(val api: DojoApi, val userPreferences: UserPrefere
     override fun getEvents(latitude: Double, longitude: Double, range: Double): Single<List<DojoEvent>> =
             api.search(latitude, longitude, range)
 
-
 }

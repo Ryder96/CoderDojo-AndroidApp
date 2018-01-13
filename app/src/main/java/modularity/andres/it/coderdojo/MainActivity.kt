@@ -42,9 +42,7 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-            }
+            R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)) }
         }
         return true
     }
@@ -68,6 +66,5 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
     override fun showError(throwable: Throwable) {
         Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()
     }
-
 
 }

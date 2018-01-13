@@ -3,6 +3,7 @@ package modularity.andres.it.coderdojo.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.format.DateFormat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
@@ -15,6 +16,7 @@ import modularity.andres.it.coderdojo.api.response.DojoLocation
 import modularity.andres.it.coderdojo.ui.detail.fragment.MapFragment
 import modularity.andres.it.coderdojo.ui.detail.mvp.EventDetailView
 import timber.log.Timber
+import java.util.*
 
 class EventDetailsActivity : AppCompatActivity(), EventDetailView {
 
@@ -32,18 +34,11 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
             toolbar.title = this.title
             toolbar_layout.title = this.title
             event_title.text = this.title
-            event_date.text = this.startTime.toString() // TODO Format epoch as string
+            event_date.text = event.formattedDate()
             event_description.text = this.description
             event_address.text = this.location.address
             setupMap(event.location)
             setupParallax(event)
-        }
-        setupContacts(event)
-    }
-
-    private fun setupContacts(event: DojoEvent) {
-        event.apply{
-            // TODO event must have e-mail, fb and twitter urls
         }
     }
 
@@ -72,5 +67,7 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
         mapFragment.setLocation(location)
         mapFragment.getMapAsync(mapFragment)
     }
+
+    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM - hh:mm", Date(this.startTime))
 
 }
