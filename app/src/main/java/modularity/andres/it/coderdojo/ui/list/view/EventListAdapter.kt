@@ -1,5 +1,6 @@
 package modularity.andres.it.coderdojo.ui.list.view
 
+import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,7 +13,11 @@ import modularity.andres.it.coderdojo.api.response.DojoEvent
  * Created by garu on 19/11/17.
  */
 
-class EventListAdapter(private val events: List<DojoEvent>, private val listener: EventClickListener) : RecyclerView.Adapter<EventsListHolder>() {
+class EventListAdapter(
+        private val events: List<DojoEvent>,
+        private val listener: EventClickListener,
+        private val context: Context
+) : RecyclerView.Adapter<EventsListHolder>() {
 
     interface EventClickListener {
         fun onEventClick(event: DojoEvent)
@@ -24,8 +29,9 @@ class EventListAdapter(private val events: List<DojoEvent>, private val listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsListHolder =
             EventsListHolder(
-                    view = parent.inflate(R.layout.dojo_event_item_row, false),
-                    listener = this.listener
+                    view = parent.inflate(R.layout.dojo_event_item_row_v1, false),
+                    listener = this.listener,
+                    context = context
             )
 
     override fun getItemCount(): Int = events.count()

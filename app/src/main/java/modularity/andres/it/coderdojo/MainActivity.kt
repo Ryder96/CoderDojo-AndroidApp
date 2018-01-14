@@ -42,7 +42,9 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.action_settings -> { startActivity(Intent(this, SettingsActivity::class.java)) }
+            R.id.action_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
         }
         return true
     }
@@ -59,7 +61,7 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
 
     override fun showEvents(events: List<DojoEvent>) {
-        this.events_list.adapter = EventListAdapter(events, this)
+        this.events_list.adapter = EventListAdapter(events, listener = this, context = this)
         this.events_list.layoutManager = LinearLayoutManager(this)
     }
 

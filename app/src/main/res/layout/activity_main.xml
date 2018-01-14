@@ -27,19 +27,6 @@
         android:padding="5dp"
         android:weightSum="3">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:text="@string/evenst_nearby_label"
-            android:textSize="@dimen/subtitle_label"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
         <include layout="@layout/content_event_list" />
 
     </LinearLayout>
