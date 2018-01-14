@@ -8,7 +8,7 @@
 
     <string name="foo_description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at risus ultricies metus varius eleifend eu vel dui. Mauris hendrerit cursus nibh eget accumsan. Curabitur sit amet cursus leo, sit amet suscipit diam. Nam ut maximus lorem. Duis eget sem at ex dapibus imperdiet. Pellentesque eu pulvinar justo. Donec sit amet tristique augue, in viverra turpis. Aliquam volutpat tempus libero nec aliquam. Integer in quam erat. Vivamus eget suscipit est. Nullam ut dignissim ipsum, et imperdiet ipsum. Cras id sapien at odio ultricies malesuada. Curabitur scelerisque porta malesuada. Nunc at dolor rhoncus, dapibus tellus eu, convallis magna. Morbi venenatis dui vitae ornare gravida. Sed rhoncus, sapien nec euismod rhoncus, tellus tortor consectetur lacus, vel fermentum justo eros in velit. Nunc pretium nibh at tortor laoreet tincidunt. Vestibulum lobortis quis quam in sollicitudin.</string>
     <string name="map">Map</string>
-    <string name="desc_label">Desc</string>
+    <string name="desc_label">Description</string>
     <string name="title_label">Title</string>
     <string name="date">sab 18 novembre 2017\n15:00 – 18:00 CET</string>
     <string name="num_tickets">Number of Tickets\nAvailable:</string>
