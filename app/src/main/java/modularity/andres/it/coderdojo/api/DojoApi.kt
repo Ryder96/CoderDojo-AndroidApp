@@ -15,7 +15,7 @@ interface DojoApi {
     fun search(
             @Query("lat") lat: Double,
             @Query("lon") lon: Double,
-            @Query("range") range: Double = 150.0
+            @Query("range") range: Int = 150
     ): Single<List<DojoEvent>>
 
 }

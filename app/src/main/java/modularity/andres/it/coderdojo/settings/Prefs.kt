@@ -39,7 +39,7 @@ fun SharedPreferences.string(def: String = "", key: String? = null): ReadWritePr
  inline fun SharedPreferences.double(key: String? = null, def: Double = 0.0) =
         object : ReadWriteProperty<Any, Double> {
             override fun getValue(thisRef: Any, property: KProperty<*>): Double {
-                val value = getString(key ?: property.name, "0.0")!!
+                val value = getString(key ?: property.name, def.toString())!!
                 return if (value.isBlank()) def
                 else value.toDouble()
 

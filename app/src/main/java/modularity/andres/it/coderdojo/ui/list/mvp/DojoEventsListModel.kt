@@ -9,7 +9,7 @@ import modularity.andres.it.coderdojo.settings.UserPreferences
  */
 
 interface DojoEventsListModel {
-    fun getEvents(latitude: Double, longitude: Double, range: Double = 150.0): Single<List<DojoEvent>>
+    fun getEvents(latitude: Double, longitude: Double, range: Int = 150): Single<List<DojoEvent>>
 
     fun getUserPref(): UserPreferences
 }

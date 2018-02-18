@@ -12,7 +12,7 @@ class DojoEventsListModelImpl(val api: DojoApi, val userPreferences: UserPrefere
 
     override fun getUserPref(): UserPreferences = userPreferences
 
-    override fun getEvents(latitude: Double, longitude: Double, range: Double): Single<List<DojoEvent>> =
+    override fun getEvents(latitude: Double, longitude: Double, range: Int): Single<List<DojoEvent>> =
             api.search(latitude, longitude, range)
 
 }

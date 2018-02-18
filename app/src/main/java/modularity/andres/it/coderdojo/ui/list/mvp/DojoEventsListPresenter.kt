@@ -11,7 +11,7 @@ import modularity.andres.it.coderdojo.app.mvp.Presenter
 class DojoEventsListPresenter(model: DojoEventsListModel, view: DojoEventsListView?)
     : Presenter<DojoEventsListModel, DojoEventsListView>(model, view) {
 
-    fun searchEvents(lat: Double, lon: Double, range: Double = 150.0) {
+    fun searchEvents(lat: Double, lon: Double, range: Int = 150) {
         model.getEvents(lat, lon, range)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

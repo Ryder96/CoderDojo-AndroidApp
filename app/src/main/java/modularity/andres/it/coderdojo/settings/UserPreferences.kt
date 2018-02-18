@@ -14,6 +14,6 @@ class UserPreferences(prefs: SharedPreferences) {
 
     var homeLongitude by prefs.double()
 
-    var searchRange by prefs.double(def = 150.0)
+    var searchRange by prefs.int(def = 150)
 
 }
