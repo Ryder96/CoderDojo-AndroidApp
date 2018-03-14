@@ -32,6 +32,12 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
         setContentView(R.layout.activity_main)
         setSupportActionBar(settings_toolbar)
         presenter.searchEvents()
+
+        event_refresh.setOnRefreshListener {
+            presenter.searchEvents(refresh = true)
+            event_refresh.isRefreshing = true
+        }
+
     }
 
 
@@ -61,11 +67,13 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
 
     override fun showEvents(events: List<DojoEvent>) {
+        event_refresh.isRefreshing = false
         this.events_list.adapter = EventListAdapter(events, listener = this, context = this)
         this.events_list.layoutManager = LinearLayoutManager(this)
     }
 
     override fun showError(throwable: Throwable) {
+        event_refresh.isRefreshing = false
         Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()
     }
 

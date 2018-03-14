@@ -11,20 +11,17 @@ import modularity.andres.it.coderdojo.app.mvp.Presenter
 class DojoEventsListPresenter(model: DojoEventsListModel, view: DojoEventsListView?)
     : Presenter<DojoEventsListModel, DojoEventsListView>(model, view) {
 
-    fun searchEvents(lat: Double, lon: Double, range: Int = 150) {
-        model.getEvents(lat, lon, range)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ view?.showEvents(it) }, { view?.showError(it) })
-    }
-
-    fun searchEvents() {
+    fun searchEvents(refresh: Boolean = false) {
         if (model.getUserPref().available) {
-            model.getEvents(model.getUserPref().homeLatitude, model.getUserPref().homeLongitude, model.getUserPref().searchRange)
-                    .subscribeOn(Schedulers.io())
+            model.getEvents(
+                    latitude = model.getUserPref().homeLatitude,
+                    longitude = model.getUserPref().homeLongitude,
+                    range = model.getUserPref().searchRange,
+                    refresh = refresh
+            ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ view?.showEvents(it) }, { view?.showError(it) })
-        }else{
+        } else {
             view?.requestUserPrefs()
         }
     }

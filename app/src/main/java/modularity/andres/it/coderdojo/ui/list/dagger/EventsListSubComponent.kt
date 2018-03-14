@@ -4,6 +4,7 @@ import dagger.Subcomponent
 import dagger.android.AndroidInjector
 import modularity.andres.it.coderdojo.MainActivity
 import modularity.andres.it.coderdojo.api.dagger.ApiModule
+import modularity.andres.it.coderdojo.api.dagger.StoreModule
 import modularity.andres.it.coderdojo.settings.PrefModule
 import javax.inject.Singleton
 
@@ -16,7 +17,8 @@ import javax.inject.Singleton
     EventListModule::class,
     EventListMvpModule::class,
     ApiModule::class,
-    PrefModule::class
+    PrefModule::class,
+    StoreModule::class
 ])
 interface EventsListSubComponent : AndroidInjector<MainActivity> {
 

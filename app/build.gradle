@@ -34,6 +34,7 @@ ext {
     glideVersion = '4.3.1'
     retrofitVersion = '2.3.0'
     playServicesVersion = '11.8.0'
+    storeVersion = '3.0.0-beta'
 }
 
 dependencies {
@@ -72,6 +73,10 @@ dependencies {
     /** RxJava 2 **/
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
     implementation "io.reactivex.rxjava2:rxjava:2.1.6"
+    /** Store **/
+    implementation "com.nytimes.android:store-kotlin3:$storeVersion"
+    implementation "com.nytimes.android:middleware3:$storeVersion"
+    implementation "com.nytimes.android:filesystem3:$storeVersion"
     /** Misc **/
     implementation "com.jakewharton.timber:timber:4.5.1"
     implementation "com.google.code.gson:gson:2.8.1"
