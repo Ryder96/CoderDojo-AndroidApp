@@ -1,9 +1,12 @@
 package modularity.andres.it.coderdojo.ui.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.format.DateFormat
+import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
@@ -30,16 +33,32 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
 
     override fun showDetail(event: DojoEvent) {
         setupDescriptionClick(event.description)
+        setupOnClickButton(event.ticketurl)
         event.apply {
             toolbar.title = this.title
             toolbar_layout.title = this.title
             event_title.text = this.title
             event_date.text = event.formattedDate()
             event_description.text = this.description
-            event_address.text = this.location.address
+            setupAddressName(this.location)
             setupMap(event.location)
             setupParallax(event)
         }
+    }
+
+    private fun setupAddressName(location: DojoLocation) {
+        if(!location.name.isEmpty())
+            event_address.text = location.name
+        else if(!location.address.isEmpty())
+            event_address.text = location.address
+
+    }
+
+    private fun setupOnClickButton(url : String) {
+        buyTicketBUtton.setOnClickListener({
+            Toast.makeText(this,url,Toast.LENGTH_LONG).show()
+
+        })
     }
 
     private fun setupParallax(event: DojoEvent) {

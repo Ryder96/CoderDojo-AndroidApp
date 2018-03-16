@@ -121,11 +121,9 @@
 
                 </LinearLayout>
 
-
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
-
 
     </android.support.constraint.ConstraintLayout>
 

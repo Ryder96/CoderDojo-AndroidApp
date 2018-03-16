@@ -62,8 +62,7 @@
                     android:text="Place - location"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:textStyle="bold"
-                     />
+                    android:textStyle="bold"/>
 
 
                 <TextView

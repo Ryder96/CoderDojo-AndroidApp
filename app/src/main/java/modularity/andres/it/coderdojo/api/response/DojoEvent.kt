@@ -7,7 +7,7 @@ data class DojoEvent (
         val description: String,
         val logo: String?,
         val icon: String?,
-        val ticketUrl: String,
+        val ticketurl: String,
         val startTime: Long,
         val endTime: Long,
         val capacity: Int?,
