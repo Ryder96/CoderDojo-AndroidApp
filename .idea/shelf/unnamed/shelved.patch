@@ -1,0 +1,178 @@
+Index: app/src/main/res/layout/activity_event_details.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<android.support.design.widget.CoordinatorLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:fitsSystemWindows=\"true\"\n    tools:context=\"modularity.andres.it.coderdojo.ui.detail.EventDetailsActivity\">\n\n    <android.support.design.widget.AppBarLayout\n        android:id=\"@+id/app_bar\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"@dimen/app_bar_height\"\n        android:fitsSystemWindows=\"true\"\n        android:theme=\"@style/AppTheme.AppBarOverlay\">\n\n        <android.support.design.widget.CollapsingToolbarLayout\n            android:id=\"@+id/toolbar_layout\"\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:fitsSystemWindows=\"true\"\n            app:layout_scrollFlags=\"scroll|exitUntilCollapsed\"\n            app:toolbarId=\"@+id/toolbar\">\n\n            <ImageView\n                android:id=\"@+id/event_parallax\"\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"match_parent\"\n                android:fitsSystemWindows=\"true\" />\n\n            <android.support.v7.widget.Toolbar\n                android:id=\"@+id/toolbar\"\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"?attr/actionBarSize\"\n                android:minHeight=\"?attr/actionBarSize\"\n                app:layout_collapseMode=\"parallax\"\n                app:popupTheme=\"@style/AppTheme.PopupOverlay\" />\n\n        </android.support.design.widget.CollapsingToolbarLayout>\n    </android.support.design.widget.AppBarLayout>\n\n    <include layout=\"@layout/content_event_details\" />\n\n    <android.support.design.widget.FloatingActionButton\n        android:id=\"@+id/fab\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_margin=\"@dimen/fab_margin\"\n        app:layout_anchor=\"@id/app_bar\"\n        app:layout_anchorGravity=\"bottom|end\"\n        app:srcCompat=\"@drawable/ic_ticket\" />\n\n</android.support.design.widget.CoordinatorLayout>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_event_details.xml	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/res/layout/activity_event_details.xml	(revision )
+@@ -20,6 +20,7 @@
+             android:layout_height="match_parent"
+             android:fitsSystemWindows="true"
+             app:layout_scrollFlags="scroll|exitUntilCollapsed"
++            app:contentScrim="@color/colorPrimary"
+             app:toolbarId="@+id/toolbar">
+ 
+             <ImageView
+Index: app/src/main/res/layout/activity_settings.xml
+===================================================================
+--- app/src/main/res/layout/activity_settings.xml	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/res/layout/activity_settings.xml	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
+@@ -1,16 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:layout_margin="10dp"
+-    tools:context="modularity.andres.it.coderdojo.ui.settings.SettingsActivity">
+-
+-    <fragment
+-        android:name="modularity.andres.it.coderdojo.ui.settings.fragment.SettingsFragment"
+-        android:id="@+id/settings_fragment"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"/>
+-
+-
+-</android.support.constraint.ConstraintLayout>
+Index: app/src/main/res/layout/dojo_event_item_row.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"wrap_content\"\n    android:orientation=\"vertical\">\n\n    <android.support.v7.widget.CardView\n        android:id=\"@+id/event_card\"\n        style=\"@style/material_card\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\">\n\n        <LinearLayout\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:orientation=\"vertical\">\n\n            <RelativeLayout\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"match_parent\"\n                android:background=\"@color/colorPrimary\"\n                android:orientation=\"vertical\">\n\n                <TextView\n                    android:id=\"@+id/dojo_title\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:layout_centerVertical=\"true\"\n                    android:padding=\"2dp\"\n                    android:text=\"@string/title_label\"\n                    android:textAlignment=\"center\"\n                    android:textColor=\"@color/white\"\n                    android:textSize=\"@dimen/size_item_title_event_label\"\n                   />\n\n            </RelativeLayout>\n\n            <LinearLayout\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"wrap_content\"\n                android:layout_margin=\"5dp\"\n                android:orientation=\"vertical\">\n\n                <TextView\n                    android:id=\"@+id/dojo_date\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:text=\"@string/date\"\n                    android:textAlignment=\"center\"\n                    android:textSize=\"@dimen/size_item_date_event_label\"\n                    android:textStyle=\"bold\" />\n\n                <TextView\n                    android:id=\"@+id/dojo_location\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:text=\"@string/address_event\"\n                    android:textAlignment=\"center\"\n                    android:textSize=\"@dimen/size_item_address_event_label\" />\n\n\n            </LinearLayout>\n\n\n        </LinearLayout>\n\n    </android.support.v7.widget.CardView>\n\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/dojo_event_item_row.xml	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/res/layout/dojo_event_item_row.xml	(revision )
+@@ -33,6 +33,14 @@
+                     android:textSize="@dimen/size_item_title_event_label"
+                    />
+ 
++                <RatingBar
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_alignEnd="@id/dojo_title"
++                    android:numStars="1"
++                    android:focusable="true"
++                    android:visibility="visible"/>
++
+             </RelativeLayout>
+ 
+             <LinearLayout
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\n    <string name=\"app_name\">CoderDojo Events</string>\n    <string name=\"title_activity_settings\">Settings</string>\n    <string name=\"title_activity_event\">Event</string>\n\n    <string name=\"google_android_map_api_key\">AIzaSyBhgdZc6Ph_IqTQYHnE508wFhv9NlyTxr4</string>\n\n\n    <string name=\"foo_description\"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at risus ultricies metus varius eleifend eu vel dui. Mauris hendrerit cursus nibh eget accumsan. Curabitur sit amet cursus leo, sit amet suscipit diam. Nam ut maximus lorem. Duis eget sem at ex dapibus imperdiet. Pellentesque eu pulvinar justo. Donec sit amet tristique augue, in viverra turpis. Aliquam volutpat tempus libero nec aliquam. Integer in quam erat. Vivamus eget suscipit est. Nullam ut dignissim ipsum, et imperdiet ipsum. Cras id sapien at odio ultricies malesuada. Curabitur scelerisque porta malesuada. Nunc at dolor rhoncus, dapibus tellus eu, convallis magna. Morbi venenatis dui vitae ornare gravida. Sed rhoncus, sapien nec euismod rhoncus, tellus tortor consectetur lacus, vel fermentum justo eros in velit. Nunc pretium nibh at tortor laoreet tincidunt. Vestibulum lobortis quis quam in sollicitudin.</string>\n    <string name=\"map\">Map</string>\n    <string name=\"desc_label\">Description</string>\n    <string name=\"title_label\">Title</string>\n    <string name=\"date\">sab 18 novembre 2017\\n15:00 – 18:00 CET</string>\n    <string name=\"num_tickets\">Number of Tickets\\nAvailable:</string>\n    <string name=\"address_event\">via panciatichi 14, firenze</string>\n    <string name=\"title_activity_description\">DescriptionActivity</string>\n    <string name=\"contact_us\">Contact us</string>\n    <string name=\"search\">City</string>\n    <string name=\"title_activity_event_list\">EventListActivity</string>\n    <string name=\"title_activity_event_details\">EventDetailsActivity</string>\n    <string name=\"action_settings\">Settings</string>\n    <string name=\"mapmark_string\">CoderDojo Here</string>\n    <string name=\"provider_id\">EventBrite</string>\n    <string name=\"evenst_nearby_label\">Events nearby</string>\n\n    <!-- Strings related to Settings -->\n\n    <string name=\"pref_title_position\">Length unit</string>\n    <string-array name=\"units\">\n        <item>Km</item>\n        <item>Mi</item>\n    </string-array>\n\n    <!-- Example General settings -->\n    <string name=\"pref_header_general\">General</string>\n\n    <string name=\"pref_title_social_recommendations\">Enable social recommendations</string>\n    <string name=\"pref_description_social_recommendations\">Recommendations for people to contact\n        based on your message history\n    </string>\n\n    <string name=\"pref_title_display_name\">Display name</string>\n    <string name=\"pref_default_display_name\">John Smith</string>\n\n    <string name=\"pref_title_add_friends_to_messages\">Add friends to messages</string>\n    <string-array name=\"pref_example_list_titles\">\n        <item>Always</item>\n        <item>When possible</item>\n        <item>Never</item>\n    </string-array>\n    <string-array name=\"pref_example_list_values\">\n        <item>1</item>\n        <item>0</item>\n        <item>-1</item>\n    </string-array>\n\n    <!-- Example settings for Data & Sync -->\n    <string name=\"pref_header_data_sync\">Data &amp; sync</string>\n\n    <string name=\"pref_title_sync_frequency\">Sync frequency</string>\n    <string-array name=\"pref_sync_frequency_titles\">\n        <item>15 minutes</item>\n        <item>30 minutes</item>\n        <item>1 hour</item>\n        <item>3 hours</item>\n        <item>6 hours</item>\n        <item>Never</item>\n    </string-array>\n    <string-array name=\"pref_sync_frequency_values\">\n        <item>15</item>\n        <item>30</item>\n        <item>60</item>\n        <item>180</item>\n        <item>360</item>\n        <item>-1</item>\n    </string-array>\n\n    <string-array name=\"list_preference_entries\">\n        <item>Entry 1</item>\n        <item>Entry 2</item>\n        <item>Entry 3</item>\n    </string-array>\n\n    <string-array name=\"list_preference_entry_values\">\n        <item>1</item>\n        <item>2</item>\n        <item>3</item>\n    </string-array>\n\n    <string-array name=\"multi_select_list_preference_default_value\" />\n\n    <string name=\"pref_title_system_sync_settings\">System sync settings</string>\n\n    <!-- Example settings for Notifications -->\n    <string name=\"pref_header_notifications\">Notifications</string>\n\n    <string name=\"pref_title_new_message_notifications\">New message notifications</string>\n\n    <string name=\"pref_title_ringtone\">Ringtone</string>\n    <string name=\"pref_ringtone_silent\">Silent</string>\n\n    <string name=\"pref_title_vibrate\">Vibrate</string>\n    <string name=\"title_activity_settings1\">Settings</string>\n    <string name=\"user_location_dialog_title\">Position</string>\n    <string name=\"title_activity_maps\">Map</string>\n    <string name=\"user_location_marker_title\">Your position</string>\n</resources>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/res/values/strings.xml	(revision )
+@@ -39,7 +39,7 @@
+         based on your message history
+     </string>
+ 
+-    <string name="pref_title_display_name">Display name</string>
++    <string name="pref_title_display_name">Location</string>
+     <string name="pref_default_display_name">John Smith</string>
+ 
+     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+Index: app/src/main/res/layout/dojo_event_item_row_v1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"wrap_content\"\n    android:orientation=\"vertical\">\n\n    <android.support.v7.widget.CardView\n        android:id=\"@+id/event_card\"\n        style=\"@style/material_card\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"150dp\">\n\n        <ImageView\n            android:id=\"@+id/dojo_logo\"\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:src=\"@mipmap/ic_launcher\" />\n\n        <ImageView\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:background=\"#5e000000\" />\n\n        <LinearLayout\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:orientation=\"vertical\">\n\n\n            <RelativeLayout\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"wrap_content\"\n                android:background=\"@color/colorPrimary\"\n                >\n\n                <TextView\n                    android:id=\"@+id/dojo_title\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:layout_margin=\"5dp\"\n                    android:gravity=\"center\"\n                    android:text=\"Coderdojo - Example\"\n                    android:textColor=\"@color/white\"\n                    android:textSize=\"20sp\"\n                    android:layout_centerInParent=\"true\"/>\n\n            </RelativeLayout>\n\n\n            <LinearLayout\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"match_parent\"\n                android:layout_margin=\"10dp\"\n                android:orientation=\"vertical\"\n                android:gravity=\"center\">\n\n                <TextView\n                    android:id=\"@+id/dojo_location\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:gravity=\"center\"\n                    android:text=\"Place - location\"\n                    android:textColor=\"@color/white\"\n                    android:textSize=\"17sp\"\n                    android:textStyle=\"bold\"\n                     />\n\n\n                <TextView\n                    android:id=\"@+id/dojo_date\"\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:gravity=\"center\"\n                    android:text=\"Day 00 Month • 00:00 pm\"\n                    android:textColor=\"@color/white\"\n                    android:textSize=\"17sp\" />\n\n\n            </LinearLayout>\n\n\n        </LinearLayout>\n    </android.support.v7.widget.CardView>\n\n\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/dojo_event_item_row_v1.xml	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/res/layout/dojo_event_item_row_v1.xml	(revision )
+@@ -30,8 +30,7 @@
+             <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+-                android:background="@color/colorPrimary"
+-                >
++                android:background="@color/colorPrimary">
+ 
+                 <TextView
+                     android:id="@+id/dojo_title"
+Index: app/src/main/java/modularity/andres/it/coderdojo/api/dagger/ApiModule.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package modularity.andres.it.coderdojo.api.dagger\n\nimport dagger.Module\nimport dagger.Provides\nimport modularity.andres.it.coderdojo.api.DojoApi\nimport modularity.andres.it.coderdojo.api.DojoApiService\nimport okhttp3.OkHttpClient\nimport okhttp3.logging.HttpLoggingInterceptor\nimport javax.inject.Named\nimport javax.inject.Singleton\n\n/**\n * Created by garu on 11/11/17.\n */\n\n@Module\nclass ApiModule {\n\n    @Singleton\n    @Provides\n    fun provideHttpClient(): OkHttpClient {\n        val interceptor = HttpLoggingInterceptor()\n        interceptor.level = HttpLoggingInterceptor.Level.BASIC\n        return OkHttpClient.Builder().addInterceptor(interceptor).build()\n    }\n\n    @Singleton\n    @Provides\n    fun provideDojoApiService(@Named(\"dojo_api_endpoint\") endpoint: String, client: OkHttpClient): DojoApiService\n            = DojoApiService(endpoint, client)\n\n    @Singleton\n    @Provides\n    fun provideDojoApi(dojoService: DojoApiService): DojoApi = dojoService.api\n\n    @Provides\n    @Named(\"dojo_api_endpoint\")\n    fun provideEndpoint(): String = \"http://dojo.garu.pizza/\" // TODO Get from build and/or remote config\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/modularity/andres/it/coderdojo/api/dagger/ApiModule.kt	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/java/modularity/andres/it/coderdojo/api/dagger/ApiModule.kt	(revision )
+@@ -35,6 +35,6 @@
+ 
+     @Provides
+     @Named("dojo_api_endpoint")
+-    fun provideEndpoint(): String = "http://dojo.garu.pizza/" // TODO Get from build and/or remote config
++    fun provideEndpoint(): String = "https://dojo.garu.pizza/" // TODO Get from build and/or remote config
+ 
+ }
+Index: app/src/main/java/modularity/andres/it/coderdojo/ui/settings/fragment/SettingsFragment.kt
+===================================================================
+--- app/src/main/java/modularity/andres/it/coderdojo/ui/settings/fragment/SettingsFragment.kt	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/java/modularity/andres/it/coderdojo/ui/settings/fragment/SettingsFragment.kt	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
+@@ -1,18 +0,0 @@
+-package modularity.andres.it.coderdojo.ui.settings.fragment
+-
+-import android.os.Bundle
+-import android.preference.PreferenceFragment
+-
+-/**
+-* Created by Andres on 12/5/2017.
+-*/
+-
+-class SettingsFragment : PreferenceFragment() {
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-       // addPreferencesFromResource(R.xml.pref_settings)
+-        var seekbar = findPreference("SEEKBAR_RANGE")
+-    }
+-
+-}
+Index: app/src/main/java/modularity/andres/it/coderdojo/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package modularity.andres.it.coderdojo\n\n\nimport android.content.Intent\nimport android.os.Bundle\nimport android.support.v7.widget.LinearLayoutManager\nimport android.view.Menu\nimport android.view.MenuItem\nimport android.widget.Toast\nimport dagger.android.AndroidInjection\nimport dagger.android.support.DaggerAppCompatActivity\nimport kotlinx.android.synthetic.main.activity_main.*\nimport kotlinx.android.synthetic.main.content_event_list.*\nimport modularity.andres.it.coderdojo.api.response.DojoEvent\nimport modularity.andres.it.coderdojo.ui.detail.EventDetailsActivity\nimport modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListPresenter\nimport modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListView\nimport modularity.andres.it.coderdojo.ui.list.view.EventListAdapter\nimport modularity.andres.it.coderdojo.ui.settings.SettingsActivity\nimport modularity.andres.it.coderdojo.ui.userlocation.LocationActivity\nimport java.io.Serializable\nimport javax.inject.Inject\n\n\nclass MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAdapter.EventClickListener {\n\n    @Inject lateinit var presenter: DojoEventsListPresenter\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        AndroidInjection.inject(this)\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_main)\n        setSupportActionBar(settings_toolbar)\n        presenter.searchEvents()\n    }\n\n\n    override fun onCreateOptionsMenu(menu: Menu?): Boolean {\n        menuInflater.inflate(R.menu.menu_event_details, menu)\n        return true\n    }\n\n    override fun onOptionsItemSelected(item: MenuItem?): Boolean {\n        when (item?.itemId) {\n            R.id.action_settings -> {\n                startActivity(Intent(this, SettingsActivity::class.java))\n            }\n        }\n        return true\n    }\n\n    override fun requestUserPrefs() {\n        startActivity(Intent(this, LocationActivity::class.java))\n    }\n\n    override fun onEventClick(event: DojoEvent) {\n        val intent = Intent(this, EventDetailsActivity::class.java)\n        intent.putExtra(\"EVENT\", event as Serializable)\n        startActivity(intent)\n    }\n\n\n    override fun showEvents(events: List<DojoEvent>) {\n        this.events_list.adapter = EventListAdapter(events, listener = this, context = this)\n        this.events_list.layoutManager = LinearLayoutManager(this)\n    }\n\n    override fun showError(throwable: Throwable) {\n        Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/modularity/andres/it/coderdojo/MainActivity.kt	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/java/modularity/andres/it/coderdojo/MainActivity.kt	(revision )
+@@ -37,6 +37,7 @@
+ 
+     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+         menuInflater.inflate(R.menu.menu_event_details, menu)
++
+         return true
+     }
+ 
+Index: app/src/main/java/modularity/andres/it/coderdojo/ui/settings/SettingsActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/modularity/andres/it/coderdojo/ui/settings/SettingsActivity.kt	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
++++ app/src/main/java/modularity/andres/it/coderdojo/ui/settings/SettingsActivity.kt	(revision 2dc1b0b552ee91c308dd8139660abd35ee276c24)
+@@ -1,14 +0,0 @@
+-package modularity.andres.it.coderdojo.ui.settings
+-
+-import android.os.Bundle
+-import android.support.v7.app.AppCompatActivity
+-import modularity.andres.it.coderdojo.R
+-
+-class SettingsActivity : AppCompatActivity() {
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_settings)
+-        supportFragmentManager.findFragmentById(R.id.settings_fragment)
+-    }
+-}
