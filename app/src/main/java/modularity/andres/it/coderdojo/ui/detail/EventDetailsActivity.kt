@@ -56,8 +56,8 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
 
     private fun setupOnClickButton(url : String) {
         buyTicketBUtton.setOnClickListener({
-            Toast.makeText(this,url,Toast.LENGTH_LONG).show()
-
+            var openLinkIntent = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            startActivity(openLinkIntent)
         })
     }
 
