@@ -85,6 +85,6 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
         mapFragment.getMapAsync(mapFragment)
     }
 
-    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM - hh:mm", Date(this.startTime))
+    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM - hh:mm", Date(this.starttime))
 
 }

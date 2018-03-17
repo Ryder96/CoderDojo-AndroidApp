@@ -49,7 +49,7 @@ class EventsListHolder(
         return location
     }
 
-    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM • hh:mm", this.startTime.toDate())
+    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM • hh:mm", this.starttime.unixEpochToDate())
 
-    private fun Long.toDate(): Date = Date(this)
+    private fun Long.unixEpochToDate(): Date = Date(this * 1000)
 }
