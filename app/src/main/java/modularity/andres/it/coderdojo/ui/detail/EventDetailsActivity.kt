@@ -25,6 +25,7 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
         setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         showDetail(intent.extras.get("EVENT") as DojoEvent)
     }
 
