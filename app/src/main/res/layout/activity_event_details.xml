@@ -8,6 +8,7 @@
     tools:context="modularity.andres.it.coderdojo.ui.detail.EventDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
+        app:layout_collapseMode="pin"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"

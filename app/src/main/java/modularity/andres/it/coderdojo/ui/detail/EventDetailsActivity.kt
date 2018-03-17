@@ -5,8 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.format.DateFormat
-import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
@@ -28,7 +26,6 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
         setContentView(R.layout.activity_event_details)
         setSupportActionBar(toolbar)
         showDetail(intent.extras.get("EVENT") as DojoEvent)
-
     }
 
     override fun showDetail(event: DojoEvent) {
