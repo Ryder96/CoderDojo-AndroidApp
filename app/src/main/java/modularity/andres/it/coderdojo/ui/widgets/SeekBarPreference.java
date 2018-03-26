@@ -2,9 +2,11 @@ package modularity.andres.it.coderdojo.ui.widgets;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +34,7 @@ public class SeekBarPreference  extends DialogPreference implements SeekBar.OnSe
 
     private String mDialogMessage, mSuffix;
     private int mDefault, mMax, mValue = 0;
+    private final int MIN = 1;
     // ------------------------------------------------------------------------------------------
 
 
@@ -45,10 +48,11 @@ public class SeekBarPreference  extends DialogPreference implements SeekBar.OnSe
 
         //loading user preferences
         userPref = new UserPreferences(context.getSharedPreferences(context.getPackageName(),Context.MODE_PRIVATE));
+
+        setSummary(Integer.toString(userPref.getSearchRange()) + " km");
+
         // Get string value for dialogMessage :
-        int mDialogMessageId = attrs.getAttributeResourceValue(androidns, "dialogMessage", 0);
-        if(mDialogMessageId == 0) mDialogMessage = attrs.getAttributeValue(androidns, "dialogMessage");
-        else mDialogMessage = mContext.getString(mDialogMessageId);
+        setDialogMessage(attrs);
 
         // Get string value for suffix (text attribute in xml file) :
         int mSuffixId = attrs.getAttributeResourceValue(androidns, "text", 0);
@@ -56,8 +60,18 @@ public class SeekBarPreference  extends DialogPreference implements SeekBar.OnSe
         else mSuffix = mContext.getString(mSuffixId);
 
         // Get default and max seekbar values :
-        mDefault = attrs.getAttributeIntValue(androidns, "defaultValue", userPref.getSearchRange() );
-        mMax = attrs.getAttributeIntValue(androidns, "max", 100);
+        mDefault = userPref.getSearchRange();
+        mMax = 300;
+
+        if(shouldPersist()){
+            persistInt(mDefault);
+        }
+    }
+
+    private void setDialogMessage(AttributeSet attrs) {
+        int mDialogMessageId = attrs.getAttributeResourceValue(androidns, "dialogMessage", 0);
+        if(mDialogMessageId == 0) mDialogMessage = attrs.getAttributeValue(androidns, "dialogMessage");
+        else mDialogMessage = mContext.getString(mDialogMessageId);
     }
     // ------------------------------------------------------------------------------------------
 
@@ -93,7 +107,6 @@ public class SeekBarPreference  extends DialogPreference implements SeekBar.OnSe
 
         if (shouldPersist())
             mValue = getPersistedInt(mDefault);
-
         mSeekBar.setMax(mMax);
         mSeekBar.setProgress(mValue);
 
@@ -125,12 +138,16 @@ public class SeekBarPreference  extends DialogPreference implements SeekBar.OnSe
     @Override
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch)
     {
-        String t = String.valueOf(value);
+        if(value == 0){
+            value = MIN;
+        }
+        String t = String.valueOf(value) + " km";
         mValueText.setText(mSuffix == null ? t : t.concat(" " + mSuffix));
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seek) {}
+    public void onStartTrackingTouch(SeekBar seek) {
+    }
     @Override
     public void onStopTrackingTouch(SeekBar seek) {}
 
@@ -161,13 +178,15 @@ public class SeekBarPreference  extends DialogPreference implements SeekBar.OnSe
     @Override
     public void onClick(View v) {
         mValue = mSeekBar.getProgress();
-        persistInt(mSeekBar.getProgress());
-        callChangeListener(mSeekBar.getProgress());
-        setSummary(Integer.toString(mValue));
+        persistInt(mValue);
+        callChangeListener(mValue);
+        setSummary(Integer.toString(mValue) + " km");
         userPref.setSearchRange(mValue);
 
 
         getDialog().dismiss();
     }
+
+
     // ------------------------------------------------------------------------------------------
 }

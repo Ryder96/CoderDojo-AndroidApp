@@ -1,17 +1,22 @@
 package modularity.andres.it.coderdojo
 
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_event_list.*
 import modularity.andres.it.coderdojo.api.response.DojoEvent
+import modularity.andres.it.coderdojo.settings.UserPreferences
 import modularity.andres.it.coderdojo.ui.detail.EventDetailsActivity
 import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListPresenter
 import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListView
@@ -67,6 +72,8 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
 
     override fun showEvents(events: List<DojoEvent>) {
+        this.error_text.visibility = View.GONE
+        this.events_list.visibility = View.VISIBLE
         event_refresh.isRefreshing = false
         this.events_list.adapter = EventListAdapter(events, listener = this, context = this)
         this.events_list.layoutManager = LinearLayoutManager(this)
@@ -74,7 +81,21 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
     override fun showError(throwable: Throwable) {
         event_refresh.isRefreshing = false
+        updateErrorText();
+        this.error_text.visibility = View.VISIBLE
+        this.events_list.visibility = View.GONE
         Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateErrorText() {
+        val userPref = UserPreferences(this.getSharedPreferences(this.packageName, Context.MODE_PRIVATE))
+        val currentRange = userPref.searchRange
+        this.error_text.text = this.error_text.text.toString() + currentRange.toString()
+        this.error_text.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this.baseContext, SettingsActivity::class.java)
+            startActivity(intent)
+        })
     }
 
 }
