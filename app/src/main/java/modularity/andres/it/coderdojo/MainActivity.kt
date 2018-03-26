@@ -27,6 +27,8 @@ import java.io.Serializable
 import javax.inject.Inject
 
 
+
+
 class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAdapter.EventClickListener {
 
     @Inject lateinit var presenter: DojoEventsListPresenter

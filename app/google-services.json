@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "166834646011",
+    "firebase_url": "https://coderdojo-events.firebaseio.com",
+    "project_id": "coderdojo-events",
+    "storage_bucket": "coderdojo-events.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166834646011:android:49ca485f2e50adcd",
+        "android_client_info": {
+          "package_name": "modularity.andres.it.coderdojo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166834646011-4v5g6dehdods20g8ktqqv82pn4qpukgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "modularity.andres.it.coderdojo",
+            "certificate_hash": "895415cea2dc961ae089cd91a53be05b0a7e9126"
+          }
+        },
+        {
+          "client_id": "166834646011-ps96p5vj07qncgng2lfdt8jorj05p6tb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC94YXiKQdYi0lj0L3BeN2XZKqC69awaHg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166834646011-ps96p5vj07qncgng2lfdt8jorj05p6tb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

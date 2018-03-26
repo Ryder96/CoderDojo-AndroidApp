@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.format.DateFormat
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -36,7 +37,10 @@ class EventsListHolder(
 
             Glide.with(context)
                     .load(event.logo)
-                    .apply(RequestOptions().transforms(BlurTransformation(30), CenterCrop()))
+                    .apply(RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .transforms(BlurTransformation(30), CenterCrop()))
+
                     .into(this.dojo_logo)
         }
 
@@ -49,7 +53,7 @@ class EventsListHolder(
         return location
     }
 
-    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM • hh:mm", this.startTime.toDate())
+    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM • hh:mm", this.starttime.unixEpochToDate())
 
-    private fun Long.toDate(): Date = Date(this)
+    private fun Long.unixEpochToDate(): Date = Date(this * 1000)
 }
