@@ -1,22 +1,17 @@
 package modularity.andres.it.coderdojo
 
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_event_list.*
 import modularity.andres.it.coderdojo.api.response.DojoEvent
-import modularity.andres.it.coderdojo.settings.UserPreferences
 import modularity.andres.it.coderdojo.ui.detail.EventDetailsActivity
 import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListPresenter
 import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListView
@@ -56,7 +51,7 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+                startActivity(Intent(this, LocationActivity::class.java))
             }
         }
         return true

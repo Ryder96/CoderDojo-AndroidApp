@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.SeekBar
 import android.widget.Toast
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -20,7 +22,9 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.activity_location.*
 import modularity.andres.it.coderdojo.MainActivity
 import modularity.andres.it.coderdojo.R
 import modularity.andres.it.coderdojo.settings.UserPreferences
@@ -28,21 +32,38 @@ import modularity.andres.it.coderdojo.ui.userlocation.map.DojoMap
 import timber.log.Timber
 
 // TODO This class needs refactor / sub component / mvp
-class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReadyCallback {
+class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReadyCallback, SeekBar.OnSeekBarChangeListener {
+
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
 
-    lateinit var map: DojoMap
+    lateinit var dojoMap: DojoMap
     lateinit var locationProvider: FusedLocationProviderClient
     var mLocationPermissionGranted: Boolean = false
     var userLocation: LatLng? = null
+    var range: Int = 150
+    private val MIN = 1
+
+    private lateinit var userPrefs: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
+        userPrefs = UserPreferences(getSharedPreferences(this.packageName, Context.MODE_PRIVATE))
         this.initPlacesAutocomplete()
         this.initLocation()
         this.initMap()
+    }
+
+    private fun initSeekBar() {
+        updateRangeText(userPrefs.searchRange)
+        this.range_seekbar.progress = userPrefs.searchRange
+        this.range_seekbar.setOnSeekBarChangeListener(this)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateRangeText(value: Int) {
+        range_detail.text = value.toString() + " km"
     }
 
     private fun initLocation() {
@@ -64,7 +85,6 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         if (userLocation != null) {
             val lat: Double = userLocation!!.latitude
             val lon: Double = userLocation!!.longitude
-            val userPrefs = UserPreferences(getSharedPreferences(this.packageName, Context.MODE_PRIVATE))
             userPrefs.homeLatitude = lat
             userPrefs.homeLongitude = lon
             userPrefs.available = true
@@ -75,8 +95,9 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        this.map = DojoMap(googleMap)
+        this.dojoMap = DojoMap(googleMap)
         this.updateMap()
+        this.initSeekBar()
     }
 
     override fun onPlaceSelected(place: Place) {
@@ -90,7 +111,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     private fun userLocationSelected(location: LatLng) {
         Timber.i("User location: ".plus(location.toString()))
-        this.map.apply {
+        this.dojoMap.apply {
             this.clear()
             this.setLocation(location)
             this.addMarker(location, getString(R.string.user_location_marker_title))
@@ -122,13 +143,22 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     @SuppressLint("MissingPermission")
     private fun updateMap() {
         if (mLocationPermissionGranted) {
-            map.map.isMyLocationEnabled = true
-            map.map.uiSettings.isMyLocationButtonEnabled = true
-            getDeviceLocation()
+            dojoMap.map.isMyLocationEnabled = true
+            dojoMap.map.uiSettings.isMyLocationButtonEnabled = true
+            if (!availableLocation()) {
+                getDeviceLocation()
+            } else {
+                userLocationSelected(LatLng(userPrefs.homeLatitude, userPrefs.homeLongitude))
+            }
         } else {
-            map.map.isMyLocationEnabled = false
-            map.map.uiSettings.isMyLocationButtonEnabled = false
+            dojoMap.map.isMyLocationEnabled = false
+            dojoMap.map.uiSettings.isMyLocationButtonEnabled = false
         }
+
+    }
+
+    private fun availableLocation(): Boolean {
+        return userPrefs.available
     }
 
     private fun getDeviceLocation() {
@@ -144,5 +174,39 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
             Log.e("Exception: %s", e.message)
         }
 
+    }
+
+    private fun drawCircle(progress: Int) {
+        val circle = CircleOptions()
+        circle.center(userLocation)
+        circle.radius(progress.toDouble() * 1000)
+        circle.strokeColor(Color.BLACK)
+        circle.strokeWidth(10f)
+        this.dojoMap.apply {
+            this.clear()
+            this.addCircle(circle)
+            this.setLocation(userLocation!!)
+            this.addMarker(userLocation!!, getString(R.string.user_location_marker_title))
+        }
+    }
+
+
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        var value = progress
+        if (progress < MIN) {
+            value = MIN
+            seekBar.progress = MIN
+        }
+        updateRangeText(value)
+        range = value
+        drawCircle(range)
+    }
+
+
+    override fun onStartTrackingTouch(seekBar: SeekBar) {
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar) {
+        userPrefs.searchRange = range
     }
 }
