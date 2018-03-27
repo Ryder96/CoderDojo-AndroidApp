@@ -177,11 +177,13 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     }
 
     private fun drawCircle(progress: Int) {
-        val circle = CircleOptions()
-        circle.center(userLocation)
-        circle.radius(progress.toDouble() * 1000)
-        circle.strokeColor(Color.BLACK)
-        circle.strokeWidth(10f)
+        val KILOMETERS = 1000
+        val circle = CircleOptions().apply {
+            center(userLocation)
+            radius(progress.toDouble() * KILOMETERS)
+            strokeColor(Color.BLACK)
+            strokeWidth(10f)
+        }
         this.dojoMap.apply {
             this.clear()
             this.addCircle(circle)
