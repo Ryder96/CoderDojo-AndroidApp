@@ -105,4 +105,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="user_location_marker_title">Your position</string>
     <string name="error_events_range">No events found inside the range -</string>
+    <string name="message_no_events_found">No events found</string>
+    <string name="message_error_fetch_events">Error fetching dojo events.</string>
 </resources>

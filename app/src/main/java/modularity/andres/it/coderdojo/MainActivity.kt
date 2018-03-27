@@ -23,15 +23,15 @@ import modularity.andres.it.coderdojo.ui.list.mvp.DojoEventsListView
 import modularity.andres.it.coderdojo.ui.list.view.EventListAdapter
 import modularity.andres.it.coderdojo.ui.settings.SettingsActivity
 import modularity.andres.it.coderdojo.ui.userlocation.LocationActivity
+import timber.log.Timber
 import java.io.Serializable
 import javax.inject.Inject
 
 
-
-
 class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAdapter.EventClickListener {
 
-    @Inject lateinit var presenter: DojoEventsListPresenter
+    @Inject
+    lateinit var presenter: DojoEventsListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -74,30 +74,33 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
 
 
     override fun showEvents(events: List<DojoEvent>) {
-        this.error_text.visibility = View.GONE
-        this.events_list.visibility = View.VISIBLE
-        event_refresh.isRefreshing = false
-        this.events_list.adapter = EventListAdapter(events, listener = this, context = this)
-        this.events_list.layoutManager = LinearLayoutManager(this)
+        this.event_refresh.isRefreshing = false
+        if (events.isNotEmpty())
+            this.showEventsView(events)
+        else
+            showErrorView(
+                    message = getString(R.string.message_no_events_found),
+                    onErrorClick = { startActivity(Intent(this, SettingsActivity::class.java)) }
+            )
     }
 
     override fun showError(throwable: Throwable) {
         event_refresh.isRefreshing = false
-        updateErrorText();
+        showErrorView(getString(R.string.message_error_fetch_events), { presenter.searchEvents() })
+        Timber.e(throwable)
+    }
+
+    private fun showEventsView(events: List<DojoEvent>) {
+        this.error_text.visibility = View.GONE
+        this.events_list.visibility = View.VISIBLE
+        this.events_list.adapter = EventListAdapter(events, listener = this, context = this)
+        this.events_list.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun showErrorView(message: String, onErrorClick: (View) -> Unit = {}) {
         this.error_text.visibility = View.VISIBLE
         this.events_list.visibility = View.GONE
-        Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()
+        this.error_text.text = message
+        this.error_text.setOnClickListener(onErrorClick)
     }
-
-    @SuppressLint("SetTextI18n")
-    private fun updateErrorText() {
-        val userPref = UserPreferences(this.getSharedPreferences(this.packageName, Context.MODE_PRIVATE))
-        val currentRange = userPref.searchRange
-        this.error_text.text = this.error_text.text.toString() + currentRange.toString()
-        this.error_text.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this.baseContext, SettingsActivity::class.java)
-            startActivity(intent)
-        })
-    }
-
 }

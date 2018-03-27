@@ -11,4 +11,5 @@
     <string name="mapmark_string">CoderDojo Qui</string>
     <string name="evenst_nearby_label">Eventi nelle vicinanze</string>
     <string name="action_settings">Impostazioni</string>
+    <string name="message_no_events_found">No events found</string>
 </resources>
