@@ -115,10 +115,14 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         Timber.i("User location: ".plus(location.toString()))
         this.dojoMap.apply {
             this.clear()
-            this.setLocation(location)
+            showLocation(location)
             this.addMarker(location, getString(R.string.user_location_marker_title))
         }
         this.userLocation = location
+    }
+
+    private fun DojoMap.showLocation(location: LatLng) {
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8.5f - range / 100f))
     }
 
     private fun getLocationPermission() {
@@ -182,19 +186,17 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     private val CIRCLE_FILL = Color.parseColor("#772195DE")
 
     private fun drawCircle(progress: Int) {
-
-        val circle = CircleOptions().apply {
-            center(userLocation)
-            radius(progress * 1000.0)
-            strokeColor(CIRCLE_STROKE)
-            fillColor(CIRCLE_FILL)
-            strokeWidth(8f)
-        }
-
-        this.dojoMap.apply {
-            clear()
-            addCircle(circle)
-        }
+        if (userLocation != null)
+            this.dojoMap.apply {
+                clear()
+                addCircle(CircleOptions().apply {
+                    center(userLocation)
+                    radius(progress * 1000.0)
+                    strokeColor(CIRCLE_STROKE)
+                    fillColor(CIRCLE_FILL)
+                    strokeWidth(8f)
+                })
+            }
 
     }
 
@@ -214,9 +216,8 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     override fun onStopTrackingTouch(seekBar: SeekBar) {
         this.userPrefs.searchRange = range
-        this.dojoMap.map.animateCamera(CameraUpdateFactory.zoomTo(8.5f - range / 100f))
         this.dojoMap.addMarker(userLocation!!, getString(R.string.user_location_marker_title))
-        //this.dojoMap.setLocation(userLocation!!)
+        this.dojoMap.map.animateCamera(CameraUpdateFactory.newLatLngZoom(this.userLocation, 8.5f - range / 100f))
     }
 
 
