@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -32,7 +33,7 @@ import modularity.andres.it.coderdojo.ui.userlocation.map.DojoMap
 import timber.log.Timber
 
 // TODO This class needs refactor / sub component / mvp
-class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReadyCallback, SeekBar.OnSeekBarChangeListener {
+class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReadyCallback, SeekBar.OnSeekBarChangeListener, GoogleMap.OnMyLocationButtonClickListener {
 
 
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
@@ -96,6 +97,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.dojoMap = DojoMap(googleMap)
+        this.dojoMap.map.setOnMyLocationButtonClickListener(this)
         this.updateMap()
         this.initSeekBar()
     }
@@ -211,4 +213,12 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     override fun onStopTrackingTouch(seekBar: SeekBar) {
         userPrefs.searchRange = range
     }
+
+
+    override fun onMyLocationButtonClick(): Boolean {
+        getDeviceLocation()
+        return true
+    }
+
+
 }
