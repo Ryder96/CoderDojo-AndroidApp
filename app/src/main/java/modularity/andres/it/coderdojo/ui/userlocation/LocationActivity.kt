@@ -19,6 +19,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
 import com.google.android.gms.location.places.ui.PlaceSelectionListener
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -177,34 +178,34 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     }
 
+    private val CIRCLE_STROKE = Color.parseColor("#EA2195DE")
+    private val CIRCLE_FILL = Color.parseColor("#772195DE")
+
     private fun drawCircle(progress: Int) {
-        val KILOMETERS = 1000
+
         val circle = CircleOptions().apply {
             center(userLocation)
-            radius(progress.toDouble() * KILOMETERS)
-            strokeColor(Color.BLACK)
-           // fillColor(Color.valueOf(1, 66,96,0.5f).toArgb())
-            strokeWidth(10f)
+            radius(progress * 1000.0)
+            strokeColor(CIRCLE_STROKE)
+            fillColor(CIRCLE_FILL)
+            strokeWidth(8f)
         }
+
         this.dojoMap.apply {
-            this.clear()
-            this.addCircle(circle)
-            this.setLocation(userLocation!!)
-            this.addMarker(userLocation!!, getString(R.string.user_location_marker_title))
+            clear()
+            addCircle(circle)
         }
+
     }
 
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        var value = progress
-        if (progress < MIN) {
-            value = MIN
-            seekBar.progress = MIN
-        }
-        updateRangeText(value)
-        range = value
-        if (userLocation != null)
+        seekBar.progress = if (seekBar.progress < MIN) MIN else seekBar.progress
+        updateRangeText(seekBar.progress)
+        this.range = seekBar.progress
+        if (this.userLocation != null)
             drawCircle(range)
+
     }
 
 
@@ -212,7 +213,10 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar) {
-        userPrefs.searchRange = range
+        this.userPrefs.searchRange = range
+        this.dojoMap.map.animateCamera(CameraUpdateFactory.zoomTo(8.5f - range / 100f))
+        this.dojoMap.addMarker(userLocation!!, getString(R.string.user_location_marker_title))
+        //this.dojoMap.setLocation(userLocation!!)
     }
 
 
