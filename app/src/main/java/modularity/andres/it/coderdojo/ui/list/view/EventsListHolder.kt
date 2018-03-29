@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.dojo_event_item_row_v1.view.*
+import modularity.andres.it.coderdojo.R
 import modularity.andres.it.coderdojo.api.response.DojoEvent
 import java.util.*
 
@@ -38,8 +39,9 @@ class EventsListHolder(
             Glide.with(context)
                     .load(event.logo)
                     .apply(RequestOptions()
+                            .placeholder(R.mipmap.ic_launcher)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .transforms(BlurTransformation(30), CenterCrop()))
+                            .transforms(BlurTransformation(30),CenterCrop()))
 
                     .into(this.dojo_logo)
         }
