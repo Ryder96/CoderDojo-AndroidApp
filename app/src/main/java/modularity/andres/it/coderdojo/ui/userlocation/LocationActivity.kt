@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -123,7 +122,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.applicationContext,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
         } else {
             ActivityCompat.requestPermissions(this,
@@ -184,6 +183,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
             center(userLocation)
             radius(progress.toDouble() * KILOMETERS)
             strokeColor(Color.BLACK)
+           // fillColor(Color.valueOf(1, 66,96,0.5f).toArgb())
             strokeWidth(10f)
         }
         this.dojoMap.apply {
@@ -203,7 +203,8 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         }
         updateRangeText(value)
         range = value
-        drawCircle(range)
+        if (userLocation != null)
+            drawCircle(range)
     }
 
 
