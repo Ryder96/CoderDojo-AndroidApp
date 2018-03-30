@@ -23,8 +23,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.Circle
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.activity_location.*
 import modularity.andres.it.coderdojo.MainActivity
 import modularity.andres.it.coderdojo.R
@@ -35,17 +37,23 @@ import timber.log.Timber
 // TODO This class needs refactor / sub component / mvp
 class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReadyCallback, SeekBar.OnSeekBarChangeListener, GoogleMap.OnMyLocationButtonClickListener {
 
+    companion object {
+        private val CIRCLE_STROKE = Color.parseColor("#EA2195DE")
+        private val CIRCLE_FILL = Color.parseColor("#772195DE")
+        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
+        private val MIN_DISTANCE = 1
+    }
 
-    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
-
-    lateinit var dojoMap: DojoMap
-    lateinit var locationProvider: FusedLocationProviderClient
-    var mLocationPermissionGranted: Boolean = false
-    var userLocation: LatLng? = null
-    var range: Int = 150
-    private val MIN = 1
+    private var range: Int = 150
+    private lateinit var dojoMap: DojoMap
+    private lateinit var locationProvider: FusedLocationProviderClient
+    private var locationPermission: Boolean = false
+    private var userLocation: LatLng? = null
 
     private lateinit var userPrefs: UserPreferences
+
+    private var userMarker: Marker? = null
+    private var rangeCircle: Circle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +90,13 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         mapFragment.getMapAsync(this)
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        this.dojoMap = DojoMap(googleMap)
+        this.dojoMap.map.setOnMyLocationButtonClickListener(this)
+        this.updateMap()
+        this.initSeekBar()
+    }
+
     fun locationConfirmed(view: View) {
         if (userLocation != null) {
             val lat: Double = userLocation!!.latitude
@@ -95,12 +110,6 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        this.dojoMap = DojoMap(googleMap)
-        this.dojoMap.map.setOnMyLocationButtonClickListener(this)
-        this.updateMap()
-        this.initSeekBar()
-    }
 
     override fun onPlaceSelected(place: Place) {
         Timber.i(place.address.toString())
@@ -114,11 +123,18 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     private fun userLocationSelected(location: LatLng) {
         Timber.i("User location: ".plus(location.toString()))
         this.dojoMap.apply {
-            this.clear()
             showLocation(location)
-            this.addMarker(location, getString(R.string.user_location_marker_title))
+            placeUserMarker(location)
         }
         this.userLocation = location
+    }
+
+    private fun placeUserMarker(location: LatLng) {
+        if (userMarker != null) {
+            this.userMarker!!.position = location
+        } else {
+            this.userMarker = this.dojoMap.addMarker(location, getString(R.string.user_location_marker_title))
+        }
     }
 
     private fun DojoMap.showLocation(location: LatLng) {
@@ -128,7 +144,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.applicationContext,
                         android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true
+            locationPermission = true
         } else {
             ActivityCompat.requestPermissions(this,
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
@@ -137,10 +153,10 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        mLocationPermissionGranted = false
+        locationPermission = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
-                mLocationPermissionGranted = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                locationPermission = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                 updateMap()
             }
         }
@@ -148,7 +164,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     @SuppressLint("MissingPermission")
     private fun updateMap() {
-        if (mLocationPermissionGranted) {
+        if (locationPermission) {
             dojoMap.map.isMyLocationEnabled = true
             dojoMap.map.uiSettings.isMyLocationButtonEnabled = true
             if (!availableLocation()) {
@@ -169,7 +185,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     private fun getDeviceLocation() {
         try {
-            if (mLocationPermissionGranted) {
+            if (locationPermission) {
                 val locationResult = locationProvider.lastLocation
                 locationResult.addOnCompleteListener(this, {
                     if (it.isSuccessful && it.result != null)
@@ -182,27 +198,29 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     }
 
-    private val CIRCLE_STROKE = Color.parseColor("#EA2195DE")
-    private val CIRCLE_FILL = Color.parseColor("#772195DE")
 
     private fun drawCircle(progress: Int) {
         if (userLocation != null)
             this.dojoMap.apply {
-                clear()
-                addCircle(CircleOptions().apply {
-                    center(userLocation)
-                    radius(progress * 1000.0)
-                    strokeColor(CIRCLE_STROKE)
-                    fillColor(CIRCLE_FILL)
-                    strokeWidth(8f)
-                })
+                if (rangeCircle != null) {
+                    rangeCircle!!.center = userLocation
+                    rangeCircle!!.radius = progress * 1000.0
+                } else {
+                    rangeCircle = addCircle(CircleOptions().apply {
+                        center(userLocation)
+                        radius(progress * 1000.0)
+                        strokeColor(CIRCLE_STROKE)
+                        fillColor(CIRCLE_FILL)
+                        strokeWidth(8f)
+                    })
+                }
             }
 
     }
 
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        seekBar.progress = if (seekBar.progress < MIN) MIN else seekBar.progress
+        seekBar.progress = if (seekBar.progress < MIN_DISTANCE) MIN_DISTANCE else seekBar.progress
         updateRangeText(seekBar.progress)
         this.range = seekBar.progress
         if (this.userLocation != null)

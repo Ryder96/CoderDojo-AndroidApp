@@ -2,18 +2,15 @@ package modularity.andres.it.coderdojo.ui.userlocation.map
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 
 /**
  * Created by garu on 07/12/17.
  */
 class DojoMap(val map: GoogleMap) {
 
-    fun addMarker(position: LatLng, title: String){
-        this.map.addMarker(
+    fun addMarker(position: LatLng, title: String):Marker{
+        return this.map.addMarker(
                 MarkerOptions()
                 .position(position)
                 .title(title)
@@ -33,8 +30,8 @@ class DojoMap(val map: GoogleMap) {
         this.map.clear()
     }
 
-    fun addCircle(circle: CircleOptions) {
-        this.map.addCircle(circle)
+    fun addCircle(circle: CircleOptions):Circle {
+        return this.map.addCircle(circle)
     }
 
 
