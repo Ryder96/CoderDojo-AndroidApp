@@ -8,6 +8,11 @@ import android.text.format.DateFormat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_event_details.*
 import kotlinx.android.synthetic.main.content_event_details.*
@@ -19,7 +24,9 @@ import modularity.andres.it.coderdojo.ui.detail.mvp.EventDetailView
 import timber.log.Timber
 import java.util.*
 
-class EventDetailsActivity : AppCompatActivity(), EventDetailView {
+class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCallback {
+
+    private lateinit var event: DojoEvent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +39,8 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
     override fun showDetail(event: DojoEvent) {
         setupDescriptionClick(event.description)
         setupOnClickButton(event.ticketurl)
+        this.event = event
+        setupMap()
         event.apply {
             toolbar.title = this.title
             toolbar_layout.title = this.title
@@ -39,22 +48,21 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
             event_date.text = event.formattedDate()
             event_description.text = this.description
             setupAddressName(this.location)
-            setupMap(event.location)
             setupParallax(event)
         }
     }
 
     private fun setupAddressName(location: DojoLocation) {
-        if(!location.name.isEmpty())
+        if (!location.name.isEmpty())
             event_address.text = location.name
-        else if(!location.address.isEmpty())
+        else if (!location.address.isEmpty())
             event_address.text = location.address
 
     }
 
-    private fun setupOnClickButton(url : String) {
+    private fun setupOnClickButton(url: String) {
         buyTicketBUtton.setOnClickListener({
-            var openLinkIntent = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            var openLinkIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(openLinkIntent)
         })
     }
@@ -79,10 +87,17 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView {
         Timber.e(error)
     }
 
-    private fun setupMap(location: DojoLocation) {
+    private fun setupMap() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
-        mapFragment.setLocation(location)
-        mapFragment.getMapAsync(mapFragment)
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        if (event.location.latitude != null && event.location.longitude != null) {
+            val location = LatLng(event.location.latitude!!, event.location.longitude!!)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 18f))
+            map.addMarker(MarkerOptions().position(location).title(event.title))
+        }
     }
 
     private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM - hh:mm", Date(this.starttime))

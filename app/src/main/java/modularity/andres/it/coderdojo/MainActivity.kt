@@ -34,7 +34,7 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
         setContentView(R.layout.activity_main)
         setSupportActionBar(settings_toolbar)
         presenter.searchEvents()
-
+        event_refresh.isRefreshing = true
         event_refresh.setOnRefreshListener {
             presenter.searchEvents(refresh = true)
             event_refresh.isRefreshing = true

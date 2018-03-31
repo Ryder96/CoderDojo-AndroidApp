@@ -41,10 +41,9 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         private val CIRCLE_STROKE = Color.parseColor("#EA2195DE")
         private val CIRCLE_FILL = Color.parseColor("#772195DE")
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
-        private val MIN_DISTANCE = 1
+        private const val MIN_DISTANCE = 1
     }
 
-    private var range: Int = 150
     private lateinit var dojoMap: DojoMap
     private lateinit var locationProvider: FusedLocationProviderClient
     private var locationPermission: Boolean = false
@@ -122,11 +121,12 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
     private fun userLocationSelected(location: LatLng) {
         Timber.i("User location: ".plus(location.toString()))
+        this.userLocation = location
         this.dojoMap.apply {
             showLocation(location)
             placeUserMarker(location)
+            drawCircle(range_seekbar.progress)
         }
-        this.userLocation = location
     }
 
     private fun placeUserMarker(location: LatLng) {
@@ -138,7 +138,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     }
 
     private fun DojoMap.showLocation(location: LatLng) {
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8.5f - range / 100f))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8.5f - range_seekbar.progress / 100f))
     }
 
     private fun getLocationPermission() {
@@ -206,6 +206,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
                     rangeCircle!!.center = userLocation
                     rangeCircle!!.radius = progress * 1000.0
                 } else {
+                    Log.i("Wow", "Add circle")
                     rangeCircle = addCircle(CircleOptions().apply {
                         center(userLocation)
                         radius(progress * 1000.0)
@@ -222,9 +223,9 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         seekBar.progress = if (seekBar.progress < MIN_DISTANCE) MIN_DISTANCE else seekBar.progress
         updateRangeText(seekBar.progress)
-        this.range = seekBar.progress
+
         if (this.userLocation != null)
-            drawCircle(range)
+            drawCircle(range_seekbar.progress)
 
     }
 
@@ -233,16 +234,16 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar) {
-        this.userPrefs.searchRange = range
-        this.dojoMap.addMarker(userLocation!!, getString(R.string.user_location_marker_title))
-        this.dojoMap.map.animateCamera(CameraUpdateFactory.newLatLngZoom(this.userLocation, 8.5f - range / 100f))
+        this.userPrefs.searchRange = range_seekbar.progress
+        if (this.userLocation != null) {
+            this.dojoMap.addMarker(userLocation!!, getString(R.string.user_location_marker_title))
+            this.dojoMap.map.animateCamera(CameraUpdateFactory.newLatLngZoom(this.userLocation, 8.5f - range_seekbar.progress / 100f))
+        }
     }
-
 
     override fun onMyLocationButtonClick(): Boolean {
         getDeviceLocation()
         return true
     }
-
 
 }
