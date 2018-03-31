@@ -8,4 +8,5 @@
 .externalNativeBuild
 # Android Studio / IntelliJ IDEA
 *.iws
-
+*.jks
+app/release/

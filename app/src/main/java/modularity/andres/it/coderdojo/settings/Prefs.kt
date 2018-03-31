@@ -36,7 +36,7 @@ fun SharedPreferences.stringSet(def: Set<String> = emptySet(), key: String? = nu
 fun SharedPreferences.string(def: String = "", key: String? = null): ReadWriteProperty<Any, String> =
         delegate(def, key, SharedPreferences::getString, Editor::putString)
 
- inline fun SharedPreferences.double(key: String? = null, def: Double = 0.0) =
+fun SharedPreferences.double(key: String? = null, def: Double = 0.0) =
         object : ReadWriteProperty<Any, Double> {
             override fun getValue(thisRef: Any, property: KProperty<*>): Double {
                 val value = getString(key ?: property.name, def.toString())!!
