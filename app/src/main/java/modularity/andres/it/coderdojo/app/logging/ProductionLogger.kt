@@ -10,19 +10,23 @@ import timber.log.Timber
 
 class ProductionLogger : Timber.Tree() {
 
+    companion object {
+        private const val TAG = "CoderdojoEvents"
+    }
+
     override fun log(priority: Int, tag: String, message: String, throwable: Throwable) {
         when (priority) {
-            Log.INFO -> Log.i(tag, message)
-            Log.WARN -> Log.w(tag, message)
-            Log.ERROR -> handleError(tag, message, throwable)
+            Log.INFO -> Log.i(TAG, message)
+            Log.WARN -> Log.w(TAG, message)
+            Log.ERROR -> handleError(TAG, message, throwable)
         }
     }
 
     private fun handleError(tag: String, message: String, throwable: Throwable?) {
         if (throwable != null) {
-            Log.e(tag, message, throwable)
+            Log.e(TAG, message, throwable)
         } else {
-            Log.e(tag, message)
+            Log.e(TAG, message)
         }
     }
 

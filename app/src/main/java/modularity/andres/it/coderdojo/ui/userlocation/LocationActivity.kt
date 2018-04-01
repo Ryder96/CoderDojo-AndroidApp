@@ -206,7 +206,6 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
                     rangeCircle!!.center = userLocation
                     rangeCircle!!.radius = progress * 1000.0
                 } else {
-                    Log.i("Wow", "Add circle")
                     rangeCircle = addCircle(CircleOptions().apply {
                         center(userLocation)
                         radius(progress * 1000.0)
