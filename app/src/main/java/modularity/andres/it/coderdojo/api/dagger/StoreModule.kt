@@ -51,7 +51,7 @@ class StoreModule {
                 .persister(FileSystemPersister.create(FileSystemFactory.create(context.filesDir), pathResolver))
                 .parser(GsonParserFactory.createSourceParser(DojoEventResult::class.java))
                 .memoryPolicy(memoryPolicy)
-                .fetcher({ api.searchV2Source(it.lat, it.lon, it.range, it.sorting).map { it.source() } })
+                .fetcher({ api.searchRawSource(it.lat, it.lon, it.range, it.sorting).map { it.source() } })
                 .open()
     }
 

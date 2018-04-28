@@ -14,7 +14,7 @@ class ProductionLogger : Timber.Tree() {
         private const val TAG = "CoderdojoEvents"
     }
 
-    override fun log(priority: Int, tag: String, message: String, throwable: Throwable) {
+    override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
         when (priority) {
             Log.INFO -> Log.i(TAG, message)
             Log.WARN -> Log.w(TAG, message)
@@ -22,7 +22,7 @@ class ProductionLogger : Timber.Tree() {
         }
     }
 
-    private fun handleError(tag: String, message: String, throwable: Throwable?) {
+    private fun handleError(tag: String?, message: String, throwable: Throwable?) {
         if (throwable != null) {
             Log.e(TAG, message, throwable)
         } else {

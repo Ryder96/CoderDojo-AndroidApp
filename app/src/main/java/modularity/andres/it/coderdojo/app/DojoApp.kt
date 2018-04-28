@@ -2,7 +2,6 @@ package modularity.andres.it.coderdojo.app
 
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import modularity.andres.it.coderdojo.BuildConfig
 import modularity.andres.it.coderdojo.app.dagger.DaggerAppComponent
 import modularity.andres.it.coderdojo.app.logging.ProductionLogger
 import timber.log.Timber
@@ -20,8 +19,9 @@ class DojoApp : DaggerApplication() {
     }
 
     private fun initTimber() {
-        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
-        else Timber.plant(ProductionLogger())
+        Timber.plant(ProductionLogger())
+       // if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+       // else Timber.plant(ProductionLogger())
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
