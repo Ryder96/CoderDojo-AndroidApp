@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_event_details.*
 import kotlinx.android.synthetic.main.content_event_details.*
+import kotlinx.android.synthetic.main.content_event_details_v2.*
 import modularity.andres.it.coderdojo.R
 import modularity.andres.it.coderdojo.api.response.DojoEvent
 import modularity.andres.it.coderdojo.api.response.DojoLocation
@@ -37,18 +38,18 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
     }
 
     override fun showDetail(event: DojoEvent) {
-        setupDescriptionClick(event.description)
-        setupOnClickButton(event.ticketurl)
+        //setupDescriptionClick(event.description)
+        //setupOnClickButton(event.ticketurl)
         this.event = event
-        setupMap()
+        //setupMap()
         event.apply {
-            toolbar.title = this.title
-            toolbar_layout.title = this.title
-            event_title.text = this.title
-            event_date.text = event.formattedDate()
-            event_description.text = this.description
-            setupAddressName(this.location)
-            setupParallax(event)
+            /* toolbar.title = this.title
+             toolbar_layout.title = this.title
+             event_title.text = this.title
+             event_date.text = event.formattedDate()
+             event_description.text = this.description
+             setupAddressName(this.location)
+             */setupParallax(this)
         }
     }
 
@@ -70,8 +71,12 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
     private fun setupParallax(event: DojoEvent) {
         Glide.with(this)
                 .load(event.logo)
-                .apply(RequestOptions().transforms(BlurTransformation(30), CenterCrop()))
-                .into(event_parallax)
+                .apply(RequestOptions().transforms(BlurTransformation(80), CenterCrop()))
+                .into(event_blur)
+        Glide.with(this)
+                .load(event.logo)
+                .apply(RequestOptions.fitCenterTransform())
+                .into(event_logo)
     }
 
     private fun setupDescriptionClick(description: String) {
