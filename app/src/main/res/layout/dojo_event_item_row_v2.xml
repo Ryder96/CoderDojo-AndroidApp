@@ -50,17 +50,13 @@
             android:padding="5dp"
             android:weightSum="3">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_location_pointer"
-                    android:tint="#a3a3a3" />
+                android:orientation="vertical"
+                android:layout_margin="8dp">
 
                 <TextView
                     android:id="@+id/dojo_location"
@@ -70,14 +66,6 @@
                     android:text="Place - location"
                     android:textSize="18sp"
                     tools:ignore="NestedWeights" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/dojo_date"

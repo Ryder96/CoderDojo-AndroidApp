@@ -69,9 +69,8 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
         this.range_seekbar.setOnSeekBarChangeListener(this)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun updateRangeText(value: Int) {
-        range_detail.text = value.toString() + " km"
+        range_detail.text = "$value km"
     }
 
     private fun initLocation() {
@@ -92,8 +91,8 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
     override fun onMapReady(googleMap: GoogleMap) {
         this.dojoMap = DojoMap(googleMap)
         this.dojoMap.map.setOnMyLocationButtonClickListener(this)
-        this.updateMap()
         this.initSeekBar()
+        this.updateMap()
     }
 
     fun locationConfirmed(view: View) {
@@ -200,7 +199,7 @@ class LocationActivity : AppCompatActivity(), PlaceSelectionListener, OnMapReady
 
 
     private fun drawCircle(progress: Int) {
-        if (userLocation != null)
+        if (this.userLocation != null)
             this.dojoMap.apply {
                 if (rangeCircle != null) {
                     rangeCircle!!.center = userLocation

@@ -35,9 +35,17 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
         setSupportActionBar(settings_toolbar)
         presenter.searchEvents()
         event_refresh.isRefreshing = true
-        event_refresh.setOnRefreshListener {
-            presenter.searchEvents(refresh = true)
-            event_refresh.isRefreshing = true
+
+        event_refresh.apply {
+            setColorSchemeResources(
+                    R.color.colorAccent,
+                    R.color.colorPrimary,
+                    R.color.colorPrimaryDark
+            )
+            setOnRefreshListener {
+                presenter.searchEvents(refresh = true)
+                event_refresh.isRefreshing = true
+            }
         }
 
     }

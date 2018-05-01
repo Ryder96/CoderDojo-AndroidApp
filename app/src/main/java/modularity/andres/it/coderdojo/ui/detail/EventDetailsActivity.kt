@@ -1,5 +1,6 @@
 package modularity.andres.it.coderdojo.ui.detail
 
+//import kotlinx.android.synthetic.main.content_event_details.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,7 +16,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.activity_event_details.*
-//import kotlinx.android.synthetic.main.content_event_details.*
 import kotlinx.android.synthetic.main.content_event_details_v2.*
 import modularity.andres.it.coderdojo.R
 import modularity.andres.it.coderdojo.api.response.DojoEvent
@@ -31,21 +31,22 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_details_v2)
+        setContentView(R.layout.activity_event_details)
         setSupportActionBar(toolbar)
-        //supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         showDetail(intent.extras.get("EVENT") as DojoEvent)
     }
 
     override fun showDetail(event: DojoEvent) {
         setupDescriptionClick(event.description)
-        //setupOnClickButton(event.ticketurl)
+        setupOnClickButton(event.ticketurl)
+        setupMapIntentClick(event.location)
         this.event = event
         setupMap()
         event.apply {
-            //toolbar.title = this.title
-            //toolbar_layout.title = this.title
-            event_title.text = this.title
+            toolbar.title = this.title
+            toolbar_layout.title = this.title
+            //event_title.text = this.title
             event_date.text = event.formattedDate()
             event_description.text = this.description
             setupAddressName(this.location)
@@ -63,7 +64,7 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
 
     private fun setupOnClickButton(url: String) {
         buyTicketBUtton.setOnClickListener({
-            var openLinkIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val openLinkIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(openLinkIntent)
         })
     }
@@ -77,7 +78,6 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
                 .load(event.logo)
                 .apply(RequestOptions().fitCenter())
                 .into(event_logo)
-
     }
 
     private fun setupDescriptionClick(description: String) {
@@ -86,6 +86,21 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
             intent.putExtra("DESC", description)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up)
+        }
+    }
+
+    private fun setupMapIntentClick(location: DojoLocation) {
+        location_icon.setOnClickListener {
+            if (location.latitude != null && location.longitude != null) {
+
+                val intent = Intent(Intent.ACTION_VIEW,
+                        Uri.parse("google.streetview:cbll=${location.latitude},${location.longitude}")
+                ).apply {
+                    setPackage("com.google.android.apps.maps")
+                }
+
+                startActivity(intent)
+            }
         }
     }
 
@@ -106,6 +121,6 @@ class EventDetailsActivity : AppCompatActivity(), EventDetailView, OnMapReadyCal
         }
     }
 
-    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM - hh:mm", Date(this.starttime))
+    private fun DojoEvent.formattedDate() = DateFormat.format("EEEE dd MMMM\nhh:mm", Date(this.starttime))
 
 }

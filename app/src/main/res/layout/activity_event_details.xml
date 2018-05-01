@@ -25,10 +25,19 @@
             app:toolbarId="@+id/toolbar">
 
             <ImageView
-                android:id="@+id/event_parallax"
+                android:id="@+id/event_blur"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
+                android:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/event_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="25dp"
+                android:src="@android:mipmap/sym_def_app_icon" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
