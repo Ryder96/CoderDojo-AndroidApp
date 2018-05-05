@@ -94,16 +94,17 @@ class MainActivity : DaggerAppCompatActivity(), DojoEventsListView, EventListAda
     }
 
     private fun showEventsView(events: List<DojoEvent>) {
-        this.error_text.visibility = View.GONE
+        this.error_layout.visibility = View.GONE
         this.events_list.visibility = View.VISIBLE
         this.events_list.adapter = EventListAdapter(events, listener = this, context = this)
         this.events_list.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun showErrorView(message: String, onErrorClick: (View) -> Unit = {}) {
-        this.error_text.visibility = View.VISIBLE
+    private fun showErrorView(message: String, onErrorClick: (View) -> Unit = {}, image: Int = R.drawable.ic_face_sad) {
+        this.error_layout.visibility = View.VISIBLE
         this.events_list.visibility = View.GONE
         this.error_text.text = message
-        this.error_text.setOnClickListener(onErrorClick)
+        this.error_image.setImageResource(image)
+        this.error_image.setOnClickListener(onErrorClick)
     }
 }
